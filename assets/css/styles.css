@@ -1,0 +1,555 @@
+/* ======================================================
+   VARIABLES + RESET
+====================================================== */
+:root {
+  --bg: #0b0b0b;
+  --ink: #f2f2f2;
+  --line: rgba(255, 255, 255, 0.18);
+  --shadow: rgba(0, 0, 0, 0.35);
+  --paper: #ffffff;
+  --paper-ink: #121212;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  background: #eee;
+  color: #111;
+}
+
+/* ======================================================
+   TOPBAR (HERO STATE)
+====================================================== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  color: var(--ink);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: visible; /* importante para dropdown y drawer mobile */
+}
+
+.topbar__inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 22px 16px 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+
+  transition: all 0.25s ease;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.brand__logo {
+  width: 320px;
+  height: auto;
+  object-fit: contain;
+  transition: 0.25s ease;
+}
+
+.hero-meta {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+  font-size: 14px;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ======================================================
+   NAVIGATION (DESKTOP)
+====================================================== */
+.nav {
+  width: 100%;
+}
+
+.nav__list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 42px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  position: relative;
+}
+
+.pill {
+  display: inline-block;
+  padding: 10px 12px;
+  font-size: 22px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.92);
+  transition: color 0.2s ease;
+}
+
+.pill:hover {
+  color: #fff;
+}
+
+.pill.active {
+  position: relative;
+  color: #fff;
+}
+
+.pill.active::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 4px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* ======================================================
+   DROPDOWN (DESKTOP + MOBILE OPEN STATE)
+====================================================== */
+.nav-drop {
+  position: relative;
+}
+
+.drop-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+
+  width: 220px;
+  padding: 8px;
+  display: none;
+
+  background: rgba(10, 10, 10, 0.98);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px var(--shadow);
+  z-index: 60;
+}
+
+/* puente invisible para evitar “gap” en hover */
+.drop-menu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+/* Links del dropdown */
+.drop-menu a {
+  display: block;
+  padding: 10px;
+  margin: 8px 0;
+  text-align: center;
+  font-size: 14px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.drop-menu a:hover {
+  color: #fff;
+}
+
+/* Desktop: hover + teclado */
+@media (hover: hover) {
+  .nav-drop:hover > .drop-menu,
+  .nav-drop:focus-within > .drop-menu {
+    display: block;
+  }
+}
+
+/* Mobile: visible cuando JS pone .open */
+.nav-drop.open > .drop-menu {
+  display: block;
+}
+
+/* ======================================================
+   BURGER
+====================================================== */
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 5px auto;
+  background: rgba(255, 255, 255, 0.95);
+  transition:
+    transform 220ms ease,
+    opacity 180ms ease;
+  transform-origin: center;
+}
+
+/* Burger -> X */
+body.menu-open .burger span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+body.menu-open .burger span:nth-child(2) {
+  opacity: 0;
+}
+body.menu-open .burger span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ======================================================
+   COMPACT HEADER (ON SCROLL)
+====================================================== */
+.topbar.compact .topbar__inner {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+}
+
+.topbar.compact .brand__logo {
+  width: 56px;
+  height: 56px;
+}
+
+.topbar.compact .nav {
+  width: auto;
+  flex: 1;
+}
+
+.topbar.compact .nav__list {
+  gap: 28px;
+}
+
+.topbar.compact .pill {
+  font-size: 16px;
+  padding: 10px 12px;
+}
+
+.topbar.compact .hero-meta {
+  display: none;
+}
+
+/* ======================================================
+   PAGE + HERO (PLACEHOLDER)
+====================================================== */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 26px 16px 60px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+}
+
+.hero__img {
+  min-height: 420px;
+  background: #bfc9d6;
+  border-radius: 6px;
+}
+
+.hero__card {
+  background: var(--paper);
+  padding: 26px;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+.tag {
+  display: inline-block;
+  border: 1px solid #111;
+  padding: 6px 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.hero__card h1 {
+  font-size: 44px;
+  margin: 6px 0 10px;
+  line-height: 1.05;
+  color: var(--paper-ink);
+}
+
+.hero__card p {
+  font-size: 16px;
+  margin: 0 0 10px;
+  color: #222;
+}
+
+.link {
+  color: #111;
+  text-decoration: underline;
+}
+
+/* ======================================================
+   FOOTER (CENTRADO POR COLUMNAS)
+====================================================== */
+.site-footer {
+  background: #0b0b0b;
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 80px;
+}
+
+.site-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 16px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px;
+  align-items: start;
+
+  text-align: center;
+}
+
+.footer-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-logos img {
+  width: 220px;
+  height: auto;
+  display: block;
+}
+
+.footer-col,
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-col h4,
+.footer-social h4 {
+  margin: 0 0 14px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.footer-col a {
+  display: block;
+  margin: 8px 0;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.footer-col a:hover {
+  color: #fff;
+}
+
+.footer-social__icons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+
+  flex: 0 0 auto;
+}
+
+.social-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.social-btn svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: #fff;
+}
+
+.footer-social__meta {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: center;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero__card h1 {
+    font-size: 34px;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 860px) {
+  .burger {
+    display: block;
+  }
+
+  /* Logo más manejable en hero */
+  .brand__logo {
+    width: 240px;
+  }
+
+  /* Oculta el texto derecho */
+  .hero-meta {
+    display: none;
+  }
+
+  /* Drawer animado bajo el header */
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 60;
+
+    background: rgba(10, 10, 10, 0.98);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 16px;
+
+    transform: translateY(-12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease,
+      visibility 0s linear 220ms;
+  }
+
+  body.menu-open .nav {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transition:
+      transform 220ms ease,
+      opacity 220ms ease,
+      visibility 0s;
+  }
+
+  /* Lista mobile sin encimarse */
+  .nav__list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .nav__item {
+    width: 100%;
+  }
+
+  .pill {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 14px;
+    line-height: 1.2;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    text-align: left;
+  }
+
+  /* Dropdown en mobile como lista debajo */
+  .drop-menu {
+    position: static;
+    transform: none;
+    width: 100%;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    padding: 8px 0 0;
+    display: none; /* se muestra por .open */
+  }
+
+  .drop-menu::before {
+    display: none;
+  }
+
+  .drop-menu a {
+    text-align: left;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .nav {
+      transition: none;
+      transform: none;
+    }
+    .burger span {
+      transition: none;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+}
