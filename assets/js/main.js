@@ -138,3 +138,234 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: true },
   );
 });
+
+/* =========================================
+   HERO CAROUSEL (Desktop: flechas + dots)
+   Mobile: swipe con scroll-snap (CSS)
+========================================= */
+(function initHeroCarousel() {
+  const root = document.querySelector(".hero-carousel");
+  if (!root) return;
+
+  const viewport = root.querySelector(".carousel-viewport");
+  const track = root.querySelector(".carousel-track");
+  const slides = Array.from(root.querySelectorAll(".carousel-slide"));
+  const prevBtn = root.querySelector(".carousel-btn.prev");
+  const nextBtn = root.querySelector(".carousel-btn.next");
+  const dotsWrap = root.querySelector(".carousel-dots");
+
+  if (!track || slides.length === 0) return;
+
+  let index = 0;
+
+  const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
+
+  const buildDots = () => {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = "";
+
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "carousel-dot" + (i === 0 ? " is-active" : "");
+      b.setAttribute("aria-label", `Ir al slide ${i + 1}`);
+      b.addEventListener("click", () => goTo(i));
+      dotsWrap.appendChild(b);
+    });
+  };
+
+  const syncDots = () => {
+    if (!dotsWrap) return;
+    dotsWrap.querySelectorAll(".carousel-dot").forEach((d, i) => {
+      d.classList.toggle("is-active", i === index);
+    });
+  };
+
+  const goTo = (i) => {
+    index = (i + slides.length) % slides.length;
+
+    // En mobile usamos scroll-snap, no transform
+    if (isMobile()) {
+      const target = slides[index];
+      target.scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+      syncDots();
+      return;
+    }
+
+    track.style.transform = `translateX(-${index * 100}%)`;
+    syncDots();
+  };
+
+  const next = () => goTo(index + 1);
+  const prev = () => goTo(index - 1);
+
+  prevBtn?.addEventListener("click", prev);
+  nextBtn?.addEventListener("click", next);
+
+  // Teclado (solo desktop)
+  root.addEventListener("keydown", (e) => {
+    if (isMobile()) return;
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+
+  // Si cambias tamaño, re-sincroniza
+  window.addEventListener("resize", () => {
+    // Reset transform cuando entras a mobile
+    if (isMobile()) track.style.transform = "";
+    goTo(index);
+  });
+
+  buildDots();
+  goTo(0);
+})();
+
+/* =========================================
+   HERO CAROUSEL (Desktop: flechas + dots + autoplay)
+   Mobile: swipe con scroll-snap (CSS)
+========================================= */
+(function initHeroCarousel() {
+  const root = document.querySelector(".hero-carousel");
+  if (!root) return;
+
+  const viewport = root.querySelector(".carousel-viewport");
+  const track = root.querySelector(".carousel-track");
+  const slides = Array.from(root.querySelectorAll(".carousel-slide"));
+  const prevBtn = root.querySelector(".carousel-btn.prev");
+  const nextBtn = root.querySelector(".carousel-btn.next");
+  const dotsWrap = root.querySelector(".carousel-dots");
+
+  if (!track || slides.length === 0) return;
+
+  let index = 0;
+
+  // Autoplay settings
+  const AUTOPLAY_MS = 4500; // ajusta a gusto
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+
+  let autoplayTimer = null;
+  let userInteracted = false;
+
+  const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
+
+  const buildDots = () => {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = "";
+
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "carousel-dot" + (i === 0 ? " is-active" : "");
+      b.setAttribute("aria-label", `Ir al slide ${i + 1}`);
+      b.addEventListener("click", () => {
+        userInteracted = true;
+        stopAutoplay();
+        goTo(i);
+      });
+      dotsWrap.appendChild(b);
+    });
+  };
+
+  const syncDots = () => {
+    if (!dotsWrap) return;
+    dotsWrap.querySelectorAll(".carousel-dot").forEach((d, i) => {
+      d.classList.toggle("is-active", i === index);
+    });
+  };
+
+  const goTo = (i) => {
+    index = (i + slides.length) % slides.length;
+
+    // Mobile: usamos scroll-snap (no transform)
+    if (isMobile()) {
+      slides[index].scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+      syncDots();
+      return;
+    }
+
+    track.style.transform = `translateX(-${index * 100}%)`;
+    syncDots();
+  };
+
+  const next = () => goTo(index + 1);
+  const prev = () => goTo(index - 1);
+
+  const startAutoplay = () => {
+    if (prefersReducedMotion) return;
+    if (userInteracted) return; // si el usuario ya tocó algo, no insistimos
+    if (slides.length <= 1) return;
+
+    stopAutoplay();
+    autoplayTimer = window.setInterval(() => {
+      // si la pestaña no está visible, no avances
+      if (document.hidden) return;
+      next();
+    }, AUTOPLAY_MS);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayTimer) {
+      window.clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
+
+  // Botones
+  prevBtn?.addEventListener("click", () => {
+    userInteracted = true;
+    stopAutoplay();
+    prev();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    userInteracted = true;
+    stopAutoplay();
+    next();
+  });
+
+  // Teclado (desktop)
+  root.addEventListener("keydown", (e) => {
+    if (isMobile()) return;
+    if (e.key === "ArrowLeft") {
+      userInteracted = true;
+      stopAutoplay();
+      prev();
+    }
+    if (e.key === "ArrowRight") {
+      userInteracted = true;
+      stopAutoplay();
+      next();
+    }
+  });
+
+  // Pausa al hover / focus
+  root.addEventListener("mouseenter", stopAutoplay);
+  root.addEventListener("mouseleave", startAutoplay);
+  root.addEventListener("focusin", stopAutoplay);
+  root.addEventListener("focusout", startAutoplay);
+
+  // Si cambias tamaño, re-sincroniza
+  window.addEventListener("resize", () => {
+    if (isMobile()) track.style.transform = "";
+    goTo(index);
+  });
+
+  // Si la pestaña vuelve a ser visible, reanuda autoplay (si aplica)
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) startAutoplay();
+  });
+
+  buildDots();
+  goTo(0);
+  startAutoplay();
+})();

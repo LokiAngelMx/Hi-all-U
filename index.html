@@ -5,18 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>H!-all-U! Media&Entertainment</title>
-
     <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
 <body>
-
     <!-- ==============================
-       NAVBAR
-  ============================== -->
+      NAVBAR
+    ============================== -->
     <header class="topbar" id="topbar">
         <div class="topbar__inner">
-
             <!-- Logo -->
             <a class="brand" href="index.html">
                 <img class="brand__logo" src="assets/img/h-all-u-logo.png" alt="H!-all-U!" />
@@ -29,17 +26,17 @@
             </div>
 
             <!-- Navegación -->
-            <nav class="nav">
+            <nav class="nav" aria-label="Navegación principal">
                 <ul class="nav__list">
                     <li><a class="pill active" href="index.html">Inicio</a></li>
 
                     <li class="nav-drop">
                         <a class="pill" href="korea.html" aria-haspopup="true" aria-expanded="false">Korea +</a>
-                        <div class="drop-menu">
-                            <a href="#">Breaking News</a>
-                            <a href="#">Cultura &amp; Historia</a>
-                            <a href="#">Vida &amp; Actualidad</a>
-                            <a href="#">Beyond Korea</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">Breaking News</a>
+                            <a href="#" role="menuitem">Cultura &amp; Historia</a>
+                            <a href="#" role="menuitem">Vida &amp; Actualidad</a>
+                            <a href="#" role="menuitem">Beyond Korea</a>
                         </div>
                     </li>
 
@@ -48,11 +45,11 @@
 
                     <li class="nav-drop">
                         <a class="pill" href="kdramas.html" aria-haspopup="true" aria-expanded="false">K-Dramas +</a>
-                        <div class="drop-menu">
-                            <a href="#">K-Drama Semanal</a>
-                            <a href="#">Lo más Visto</a>
-                            <a href="#">Próximamente</a>
-                            <a href="#">Reseñas &amp; Opiniones</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">K-Drama Semanal</a>
+                            <a href="#" role="menuitem">Lo más Visto</a>
+                            <a href="#" role="menuitem">Próximamente</a>
+                            <a href="#" role="menuitem">Reseñas &amp; Opiniones</a>
                         </div>
                     </li>
 
@@ -62,68 +59,217 @@
                     <li class="nav-drop">
                         <a class="pill" href="vidas.html" aria-haspopup="true" aria-expanded="false">Vidas &amp;
                             Historias</a>
-                        <div class="drop-menu">
-                            <a href="#">Grupos &amp; Idols</a>
-                            <a href="#">Íconos de la Pantalla</a>
-                            <a href="#">Grandes Personajes</a>
-                            <a href="#">Historias Inolvidables</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">Grupos &amp; Idols</a>
+                            <a href="#" role="menuitem">Íconos de la Pantalla</a>
+                            <a href="#" role="menuitem">Grandes Personajes</a>
+                            <a href="#" role="menuitem">Historias Inolvidables</a>
                         </div>
                     </li>
                 </ul>
             </nav>
 
             <!-- Burger -->
-            <button class="burger" aria-label="Abrir menú">
+            <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
         </div>
     </header>
 
     <!-- ==============================
-       MAIN CONTENT
-  ============================== -->
+      MAIN CONTENT
+    ============================== -->
     <main class="page">
+        <!-- HERO CAROUSEL -->
+        <section class="hero-carousel" aria-label="Carrusel principal">
+            <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
 
-        <!-- Hero blocks demo -->
-        <section class="hero">
-            <div class="hero__img"></div>
+            <div class="carousel-viewport">
+                <div class="carousel-track">
+                    <!-- Slide 1 -->
+                    <article class="carousel-slide">
+                        <div class="hero">
+                            <div class="hero__media">
+                                <img class="hero__img" src="assets/img/placeholder.jpg"
+                                    alt="Cha Eun-Woo en noticia destacada" loading="lazy" decoding="async" />
+                            </div>
 
-            <div class="hero__card">
-                <span class="tag">Korea +</span>
+                            <div class="hero__card">
+                                <span class="tag">Korea +</span>
+                                <h1>CHA EUN-WOO, ¿FALSO ESCÁNDALO FISCAL?</h1>
 
-                <h1>CHA EUN-WOO, ¿FALSO ESCÁNDALO FISCAL?</h1>
+                                <p>
+                                    Investigan al actor por presunta evasión de 20,000 millones de wones mediante una
+                                    empresa
+                                    "fantasma" familiar. Su agencia alega errores de interpretación legal y ya impugnan
+                                    el cargo ante
+                                    tribunales. El caso impacta su imagen y contratos publicitarios mientras cumple el
+                                    servicio militar
+                                    este 2026.
+                                </p>
 
-                <p>
-                    Este bloque es placeholder. En el siguiente paso armamos el layout
-                    exacto del home según el mockup: grid principal, tarjetas
-                    secundarias, sidebar con Top-5 y espacio para anuncios.
-                </p>
+                                <p><em>by: Editorial</em></p>
+                                <a class="link" href="#">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
 
-                <a class="link" href="#">Leer más</a>
+                    <!-- Slide 2 -->
+                    <article class="carousel-slide">
+                        <div class="hero">
+                            <div class="hero__media">
+                                <img class="hero__img" src="assets/img/placeholder.jpg"
+                                    alt="Noticia destacada de K-Dramas" loading="lazy" decoding="async" />
+                            </div>
+
+                            <div class="hero__card">
+                                <span class="tag">K-Dramas +</span>
+                                <h1>OTRA NOTICIA DESTACADA PARA EL HOME</h1>
+                                <p>Aqui va el texto de la noticia.</p>
+                                <a class="link" href="#">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Slide 3 -->
+                    <article class="carousel-slide">
+                        <div class="hero">
+                            <div class="hero__media">
+                                <img class="hero__img" src="assets/img/placeholder.jpg"
+                                    alt="Noticia destacada de K-Dramas" loading="lazy" decoding="async" />
+                            </div>
+
+                            <div class="hero__card">
+                                <span class="tag">K-Dramas +</span>
+                                <h1>OTRA NOTICIA DESTACADA PARA EL HOME</h1>
+                                <p>Aqui va el texto de la noticia.</p>
+                                <a class="link" href="#">Leer más</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
+
+            <button class="carousel-btn next" type="button" aria-label="Siguiente">›</button>
+            <div class="carousel-dots" role="tablist" aria-label="Paginación del carrusel"></div>
         </section>
 
-        <section class="hero">
-            <div class="hero__img"></div>
-            <div class="hero__card">
-                <span class="tag">Korea +</span>
-                <h1>CHA EUN-WOO, ¿FALSO ESCÁNDALO FISCAL?</h1>
-                <p>Contenido placeholder.</p>
-                <a class="link" href="#">Leer más</a>
-            </div>
-        </section>
+        <!-- ==============================
+        SECCIÓN 2 (tarjetitas debajo del carrusel)
+        * Mismo “gutter” que el carrusel: va dentro de .page (container)
+      ============================== -->
+        <section class="home-panels" aria-label="Secciones destacadas">
+            <!-- Panel Izquierdo: K-Dramas + -->
+            <section class="panel panel--kdramas" aria-label="K-Dramas destacados">
+                <div class="panel__header">
+                    <h2 class="panel__title">K-Dramas +</h2>
+                </div>
 
+                <div class="kdramas-grid">
+                    <!-- Item 1 -->
+                    <article class="mini-card">
+                        <a class="mini-card__media" href="#">
+                            <img src="assets/img/placeholder.jpg" alt="IU y Byeon WooSeok" loading="lazy"
+                                decoding="async" />
+                        </a>
+                        <div class="mini-card__body">
+                            <a class="mini-card__text" href="#">IU &amp; Byeon WooSeok, nueva pareja real</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 2 -->
+                    <article class="mini-card">
+                        <a class="mini-card__media" href="#">
+                            <img src="assets/img/placeholder.jpg" alt="¿Puede traducirse este amor?" loading="lazy"
+                                decoding="async" />
+                        </a>
+                        <div class="mini-card__body">
+                            <a class="mini-card__text" href="#"><em>“¿Puede traducirse este amor?”</em> 9M de vistas
+                                dicen que sí.</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 3 -->
+                    <article class="mini-card">
+                        <a class="mini-card__media" href="#">
+                            <img src="assets/img/placeholder.jpg" alt="Study Group 2" loading="lazy" decoding="async" />
+                        </a>
+                        <div class="mini-card__body">
+                            <a class="mini-card__text" href="#">Conoce el elenco confirmado de “Study Group 2”</a>
+                        </div>
+                    </article>
+
+                    <!-- Item 4 -->
+                    <article class="mini-card">
+                        <a class="mini-card__media" href="#">
+                            <img src="assets/img/placeholder.jpg" alt="Spring Fever" loading="lazy" decoding="async" />
+                        </a>
+                        <div class="mini-card__body">
+                            <a class="mini-card__text" href="#">“Spring Fever” llega a su fin con una historia
+                                inolvidable.</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Panel Derecho: Picks de la Semana -->
+            <section class="panel panel--picks" aria-label="Picks de la semana">
+                <div class="panel__header">
+                    <h2 class="panel__title">Picks de la Semana</h2>
+                </div>
+
+                <div class="picks-grid">
+                    <!-- Pick 1 -->
+                    <article class="pick-card">
+                        <a class="pick-card__media" href="#">
+                            <img src="assets/img/placeholder.jpg" alt="Portada del álbum" loading="lazy"
+                                decoding="async" />
+                        </a>
+                        <div class="pick-card__body">
+                            <h3 class="pick-card__headline">‘Do it’ Stray Kids</h3>
+                            <p class="pick-card__desc">
+                                Stray Kids refuerza su sello: un hip-hop electrónico intenso y letras que desafían al
+                                “no puedes”.
+                                <a class="pick-card__link" href="#">Leer más</a>
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Pick 2 (YouTube thumbnail 16:9 sin deformarse) -->
+                    <article class="pick-card">
+                        <div class="pick-card__body">
+                            <h3 class="pick-card__headline">‘BLACKPINK - 뛰어(JUMP)’</h3>
+                            <p class="pick-card__desc">
+                                Regresa el Pink a la escena musical para reclamar su lugar.
+                                <a class="pick-card__link"
+                                    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
+                                    target="_blank" rel="noopener">
+                                    Ver en YouTube
+                                </a>
+                            </p>
+                        </div>
+
+                        <a class="pick-card__media pick-card__media--video"
+                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
+                            target="_blank" rel="noopener" aria-label="Ver video en YouTube">
+                            <!-- ✅ usa hqdefault para evitar casos donde maxres no existe -->
+                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="BLACKPINK - JUMP"
+                                loading="lazy" decoding="async" />
+                            <span class="video-badge" aria-hidden="true">▶</span>
+                        </a>
+                    </article>
+                </div>
+            </section>
+        </section>
     </main>
 
     <!-- ==============================
-       FOOTER
-  ============================== -->
+      FOOTER
+    ============================== -->
     <footer class="site-footer">
         <div class="site-footer__inner">
-
             <!-- Logos -->
             <div class="footer-logos">
                 <img class="footer-logos__cr" src="assets/img/casarobles-group-logo.png" alt="CasaRobles Group" />
@@ -149,19 +295,18 @@
             <div class="footer-social">
                 <h4>Síguenos</h4>
 
-                <div class="footer-social__icons">
-
+                <div class="footer-social__icons" aria-label="Redes sociales">
                     <!-- Facebook -->
-                    <a class="social-btn" href="#">
-                        <svg viewBox="0 0 24 24">
+                    <a class="social-btn" href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path
                                 d="M14 8.5V7.2c0-.6.4-1 1-1h1.5V3.5H14.5C12 3.5 10.5 5 10.5 7.2v1.3H9v2.8h1.5V20h3V11.3h2.2l.4-2.8H14z" />
                         </svg>
                     </a>
 
                     <!-- Instagram -->
-                    <a class="social-btn" href="#">
-                        <svg viewBox="0 0 24 24">
+                    <a class="social-btn" href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path
                                 d="M7.5 3.5h9A4 4 0 0 1 20.5 7.5v9a4 4 0 0 1-4 4h-9a4 4 0 0 1-4-4v-9a4 4 0 0 1 4-4zm9 2h-9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2z" />
                             <path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
@@ -169,22 +314,19 @@
                     </a>
 
                     <!-- TikTok -->
-                    <a class="social-btn" href="#">
-                        <svg viewBox="0 0 448 512">
+                    <a class="social-btn" href="#" aria-label="TikTok">
+                        <svg viewBox="0 0 448 512" aria-hidden="true" focusable="false">
                             <path
                                 d="M448 209.9a210.1 210.1 0 0 1-122.8-39.2v178.8a162.6 162.6 0 1 1-141-161v83.6a79.1 79.1 0 1 0 55.8 75.6V0h82.6A128.4 128.4 0 0 0 448 108.9Z" />
                         </svg>
                     </a>
-
                 </div>
 
                 <div class="footer-social__meta">
                     <div>H-all-U Media&amp;Entertainment</div>
                     <div>by © CasaRobles Group 2026</div>
                 </div>
-
             </div>
-
         </div>
     </footer>
 

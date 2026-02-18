@@ -8,6 +8,10 @@
   --shadow: rgba(0, 0, 0, 0.35);
   --paper: #ffffff;
   --paper-ink: #121212;
+
+  --container: 1440px;
+  --gutter: 10px;
+  --section-gap: 18px;
 }
 
 * {
@@ -27,7 +31,7 @@ body {
 }
 
 /* ======================================================
-   TOPBAR (HERO STATE)
+   TOPBAR
 ====================================================== */
 .topbar {
   position: sticky;
@@ -36,14 +40,14 @@ body {
   background: var(--bg);
   color: var(--ink);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: visible; /* importante para dropdown y drawer mobile */
+  overflow: visible;
 }
 
 .topbar__inner {
   position: relative;
-  max-width: 1200px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 22px 16px 18px;
+  padding: 22px var(--gutter) 18px;
 
   display: flex;
   flex-direction: column;
@@ -69,7 +73,7 @@ body {
 
 .hero-meta {
   position: absolute;
-  right: 16px;
+  right: var(--gutter);
   top: 50%;
   transform: translateY(-50%);
   text-align: right;
@@ -93,10 +97,6 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.nav__item {
-  position: relative;
 }
 
 .pill {
@@ -128,7 +128,7 @@ body {
 }
 
 /* ======================================================
-   DROPDOWN (DESKTOP + MOBILE OPEN STATE)
+   DROPDOWN
 ====================================================== */
 .nav-drop {
   position: relative;
@@ -150,7 +150,6 @@ body {
   z-index: 60;
 }
 
-/* puente invisible para evitar “gap” en hover */
 .drop-menu::before {
   content: "";
   position: absolute;
@@ -160,7 +159,6 @@ body {
   height: 12px;
 }
 
-/* Links del dropdown */
 .drop-menu a {
   display: block;
   padding: 10px;
@@ -176,7 +174,6 @@ body {
   color: #fff;
 }
 
-/* Desktop: hover + teclado */
 @media (hover: hover) {
   .nav-drop:hover > .drop-menu,
   .nav-drop:focus-within > .drop-menu {
@@ -184,7 +181,6 @@ body {
   }
 }
 
-/* Mobile: visible cuando JS pone .open */
 .nav-drop.open > .drop-menu {
   display: block;
 }
@@ -215,26 +211,27 @@ body {
   transform-origin: center;
 }
 
-/* Burger -> X */
 body.menu-open .burger span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 body.menu-open .burger span:nth-child(2) {
   opacity: 0;
 }
+
 body.menu-open .burger span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
 /* ======================================================
-   COMPACT HEADER (ON SCROLL)
+   COMPACT HEADER (SCROLL)
 ====================================================== */
 .topbar.compact .topbar__inner {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 14px 16px;
+  padding: 14px var(--gutter);
 }
 
 .topbar.compact .brand__logo {
@@ -261,24 +258,39 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   PAGE + HERO (PLACEHOLDER)
+   PAGE / CONTAINER
 ====================================================== */
 .page {
-  max-width: 1200px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 26px 16px 60px;
+  padding: 22px var(--gutter) 60px;
 }
 
+/* ======================================================
+   HERO (SLIDES)
+====================================================== */
 .hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 18px;
+  align-items: stretch;
+}
+
+.hero__media {
+  width: 100%;
+  min-height: 420px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #bfc9d6;
 }
 
 .hero__img {
+  width: 100%;
+  height: 100%;
   min-height: 420px;
-  background: #bfc9d6;
-  border-radius: 6px;
+  display: block;
+  object-fit: cover;
+  object-position: center;
 }
 
 .hero__card {
@@ -315,7 +327,277 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   FOOTER (CENTRADO POR COLUMNAS)
+   HERO CAROUSEL
+====================================================== */
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  transform: translateX(0);
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  padding: 0;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 0 0;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+.carousel-dot.is-active {
+  background: rgba(0, 0, 0, 0.65);
+  border-color: rgba(0, 0, 0, 0.65);
+}
+
+/* ======================================================
+   HOME PANELS (MISMO ANCHO QUE CARRUSEL)
+====================================================== */
+.home-panels {
+  margin-top: var(--section-gap);
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  align-items: stretch; /* ambos paneles misma altura */
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column; /* para que el grid interno pueda llenar alto */
+}
+
+.panel__header {
+  padding: 10px 12px 0;
+}
+
+.panel__title {
+  display: inline-block;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  background: #fff;
+}
+
+/* ======================================================
+   K-DRAMAS GRID (SIN HUECO ABAJO)
+====================================================== */
+.kdramas-grid {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 18px;
+
+  flex: 1; /* llena el panel */
+  align-content: stretch;
+  grid-auto-rows: 1fr; /* filas iguales => no queda “aire” raro */
+}
+
+.mini-card {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.mini-card__media {
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  background: #d7dde7;
+  border-radius: 6px;
+}
+
+.mini-card__media img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.mini-card__body {
+  padding-top: 2px;
+}
+
+.mini-card__text {
+  color: #111;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.mini-card__text:hover {
+  text-decoration: underline;
+}
+
+/* ======================================================
+   PICKS GRID (VIDEO ABAJO DEL TEXTO + SIN ESPACIO GRIS)
+====================================================== */
+.picks-grid {
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  flex: 1; /* llena el panel */
+  align-content: stretch;
+  grid-auto-rows: 1fr; /* cards igual alto */
+}
+
+.pick-card {
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: #fff;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* evita desbordes raros en grids */
+}
+
+.pick-card__media {
+  display: block;
+  overflow: hidden;
+}
+
+.pick-card__media img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+}
+
+.pick-card__body {
+  padding: 12px;
+}
+
+.pick-card__headline {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+.pick-card__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #222;
+}
+
+.pick-card__link {
+  color: #111;
+  text-decoration: underline;
+}
+
+/* ✅ Pick 2: TEXTO ARRIBA + VIDEO ABAJO (NO A LA IZQUIERDA) */
+.picks-grid .pick-card:nth-child(2) {
+  display: flex;
+  flex-direction: column; /* apila */
+}
+
+/* Video thumb ocupa su espacio exacto y NO deja fondo gris */
+.pick-card__media--video {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  height: 170px; /* mismo alto visual que las otras imágenes */
+  overflow: hidden;
+
+  background: transparent; /* 👈 no gris/negro */
+}
+
+.pick-card__media--video img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; /* sin barras negras */
+  object-position: center;
+}
+
+/* Play overlay */
+.video-badge {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 48px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.pick-card__media--video:hover .video-badge {
+  opacity: 1;
+}
+
+/* ======================================================
+   FOOTER (CENTRADO)
 ====================================================== */
 .site-footer {
   background: #0b0b0b;
@@ -325,15 +607,14 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 .site-footer__inner {
-  max-width: 1200px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 44px 16px;
+  padding: 44px var(--gutter);
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 36px;
   align-items: start;
-
   text-align: center;
 }
 
@@ -396,7 +677,6 @@ body.menu-open .burger span:nth-child(3) {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   text-decoration: none;
-
   flex: 0 0 auto;
 }
 
@@ -427,8 +707,17 @@ body.menu-open .burger span:nth-child(3) {
   .hero {
     grid-template-columns: 1fr;
   }
+
   .hero__card h1 {
     font-size: 34px;
+  }
+
+  .home-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .picks-grid {
+    grid-template-columns: 1fr;
   }
 
   .site-footer__inner {
@@ -442,17 +731,14 @@ body.menu-open .burger span:nth-child(3) {
     display: block;
   }
 
-  /* Logo más manejable en hero */
   .brand__logo {
     width: 240px;
   }
 
-  /* Oculta el texto derecho */
   .hero-meta {
     display: none;
   }
 
-  /* Drawer animado bajo el header */
   .nav {
     position: absolute;
     top: 100%;
@@ -487,16 +773,10 @@ body.menu-open .burger span:nth-child(3) {
       visibility 0s;
   }
 
-  /* Lista mobile sin encimarse */
   .nav__list {
-    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
-  }
-
-  .nav__item {
-    width: 100%;
   }
 
   .pill {
@@ -510,7 +790,6 @@ body.menu-open .burger span:nth-child(3) {
     text-align: left;
   }
 
-  /* Dropdown en mobile como lista debajo */
   .drop-menu {
     position: static;
     transform: none;
@@ -519,7 +798,7 @@ body.menu-open .burger span:nth-child(3) {
     box-shadow: none;
     background: transparent;
     padding: 8px 0 0;
-    display: none; /* se muestra por .open */
+    display: none;
   }
 
   .drop-menu::before {
@@ -535,15 +814,25 @@ body.menu-open .burger span:nth-child(3) {
     background: rgba(255, 255, 255, 0.06);
   }
 
-  /* Reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .nav {
-      transition: none;
-      transform: none;
-    }
-    .burger span {
-      transition: none;
-    }
+  /* Carrusel mobile: swipe, sin flechas */
+  .carousel-btn {
+    display: none;
+  }
+
+  .carousel-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .carousel-track {
+    transition: none;
+    transform: none !important;
+  }
+
+  .carousel-slide {
+    scroll-snap-align: start;
+    flex: 0 0 100%;
   }
 }
 
@@ -551,5 +840,22 @@ body.menu-open .burger span:nth-child(3) {
   .site-footer__inner {
     grid-template-columns: 1fr;
     gap: 26px;
+  }
+
+  .kdramas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-card {
+    grid-template-columns: 140px 1fr;
+  }
+
+  .mini-card__media img {
+    height: 110px;
+  }
+
+  .pick-card__media img,
+  .pick-card__media--video {
+    height: 200px;
   }
 }

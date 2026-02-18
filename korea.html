@@ -5,18 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>H!-all-U! Media&Entertainment</title>
-
     <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
 <body>
-
     <!-- ==============================
-       NAVBAR
-  ============================== -->
+      NAVBAR
+    ============================== -->
     <header class="topbar" id="topbar">
         <div class="topbar__inner">
-
             <!-- Logo -->
             <a class="brand" href="index.html">
                 <img class="brand__logo" src="assets/img/h-all-u-logo.png" alt="H!-all-U!" />
@@ -29,100 +26,63 @@
             </div>
 
             <!-- Navegación -->
-            <nav class="nav">
+            <nav class="nav" aria-label="Navegación principal">
                 <ul class="nav__list">
                     <li><a class="pill" href="index.html">Inicio</a></li>
 
                     <li class="nav-drop">
-                        <a class="pill active" href="korea.html">Korea +</a>
-                        <div class="drop-menu">
-                            <a href="#">Breaking News</a>
-                            <a href="#">Cultura &amp; Historia</a>
-                            <a href="#">Vida &amp; Actualidad</a>
-                            <a href="#">Beyond Korea</a>
+                        <a class="pill active" href="korea.html" aria-haspopup="true" aria-expanded="false">Korea +</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">Breaking News</a>
+                            <a href="#" role="menuitem">Cultura &amp; Historia</a>
+                            <a href="#" role="menuitem">Vida &amp; Actualidad</a>
+                            <a href="#" role="menuitem">Beyond Korea</a>
                         </div>
                     </li>
 
                     <!-- K-Music SIN drop -->
-                    <li><a class="pill" href="#">K-Music +</a></li>
+                    <li><a class="pill" href="kmusic.html">K-Music +</a></li>
 
                     <li class="nav-drop">
-                        <a class="pill" href="#">K-Dramas +</a>
-                        <div class="drop-menu">
-                            <a href="#">K-Drama Semanal</a>
-                            <a href="#">Lo más Visto</a>
-                            <a href="#">Próximamente</a>
-                            <a href="#">Reseñas &amp; Opiniones</a>
+                        <a class="pill" href="kdramas.html" aria-haspopup="true" aria-expanded="false">K-Dramas +</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">K-Drama Semanal</a>
+                            <a href="#" role="menuitem">Lo más Visto</a>
+                            <a href="#" role="menuitem">Próximamente</a>
+                            <a href="#" role="menuitem">Reseñas &amp; Opiniones</a>
                         </div>
                     </li>
 
-                    <li><a class="pill" href="#">K-Fashion +</a></li>
+                    <li><a class="pill" href="kfashion.html">K-Fashion +</a></li>
 
                     <!-- Vidas & Historias CON drop -->
                     <li class="nav-drop">
-                        <a class="pill" href="#">Vidas &amp; Historias</a>
-                        <div class="drop-menu">
-                            <a href="#">Grupos &amp; Idols</a>
-                            <a href="#">Íconos de la Pantalla</a>
-                            <a href="#">Grandes Personajes</a>
-                            <a href="#">Historias Inolvidables</a>
+                        <a class="pill" href="vidas.html" aria-haspopup="true" aria-expanded="false">Vidas &amp;
+                            Historias</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">Grupos &amp; Idols</a>
+                            <a href="#" role="menuitem">Íconos de la Pantalla</a>
+                            <a href="#" role="menuitem">Grandes Personajes</a>
+                            <a href="#" role="menuitem">Historias Inolvidables</a>
                         </div>
                     </li>
                 </ul>
             </nav>
 
             <!-- Burger -->
-            <button class="burger" aria-label="Abrir menú">
+            <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
         </div>
     </header>
 
     <!-- ==============================
-       MAIN CONTENT
-  ============================== -->
-    <main class="page">
-
-        <!-- Hero blocks demo -->
-        <section class="hero">
-            <div class="hero__img"></div>
-
-            <div class="hero__card">
-                <span class="tag">Korea +</span>
-
-                <h1>Koreaaaa</h1>
-
-                <p>
-                    Este bloque es placeholder. En el siguiente paso armamos el layout
-                    exacto del home según el mockup: grid principal, tarjetas
-                    secundarias, sidebar con Top-5 y espacio para anuncios.
-                </p>
-
-                <a class="link" href="#">Leer más</a>
-            </div>
-        </section>
-
-        <section class="hero">
-            <div class="hero__img"></div>
-            <div class="hero__card">
-                <span class="tag">Korea +</span>
-                <h1>CHA EUN-WOO, ¿FALSO ESCÁNDALO FISCAL?</h1>
-                <p>Contenido placeholder.</p>
-                <a class="link" href="#">Leer más</a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ==============================
-       FOOTER
-  ============================== -->
+      FOOTER
+    ============================== -->
     <footer class="site-footer">
         <div class="site-footer__inner">
-
             <!-- Logos -->
             <div class="footer-logos">
                 <img class="footer-logos__cr" src="assets/img/casarobles-group-logo.png" alt="CasaRobles Group" />
@@ -148,19 +108,18 @@
             <div class="footer-social">
                 <h4>Síguenos</h4>
 
-                <div class="footer-social__icons">
-
+                <div class="footer-social__icons" aria-label="Redes sociales">
                     <!-- Facebook -->
-                    <a class="social-btn" href="#">
-                        <svg viewBox="0 0 24 24">
+                    <a class="social-btn" href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path
                                 d="M14 8.5V7.2c0-.6.4-1 1-1h1.5V3.5H14.5C12 3.5 10.5 5 10.5 7.2v1.3H9v2.8h1.5V20h3V11.3h2.2l.4-2.8H14z" />
                         </svg>
                     </a>
 
                     <!-- Instagram -->
-                    <a class="social-btn" href="#">
-                        <svg viewBox="0 0 24 24">
+                    <a class="social-btn" href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path
                                 d="M7.5 3.5h9A4 4 0 0 1 20.5 7.5v9a4 4 0 0 1-4 4h-9a4 4 0 0 1-4-4v-9a4 4 0 0 1 4-4zm9 2h-9a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2z" />
                             <path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8z" />
@@ -168,22 +127,19 @@
                     </a>
 
                     <!-- TikTok -->
-                    <a class="social-btn" href="#">
-                        <svg viewBox="0 0 448 512">
+                    <a class="social-btn" href="#" aria-label="TikTok">
+                        <svg viewBox="0 0 448 512" aria-hidden="true" focusable="false">
                             <path
                                 d="M448 209.9a210.1 210.1 0 0 1-122.8-39.2v178.8a162.6 162.6 0 1 1-141-161v83.6a79.1 79.1 0 1 0 55.8 75.6V0h82.6A128.4 128.4 0 0 0 448 108.9Z" />
                         </svg>
                     </a>
-
                 </div>
 
                 <div class="footer-social__meta">
                     <div>H-all-U Media&amp;Entertainment</div>
                     <div>by © CasaRobles Group 2026</div>
                 </div>
-
             </div>
-
         </div>
     </footer>
 
