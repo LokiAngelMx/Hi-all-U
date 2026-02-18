@@ -1,11 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+  /* ======================================================
+     HELPERS
+  ====================================================== */
   const body = document.body;
   const burger = document.querySelector(".burger");
   const topbar = document.querySelector(".topbar");
   const nav = document.querySelector(".nav");
 
-  const isDesktopHover = () => window.matchMedia("(hover: hover)").matches;
-  const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
+  const mqDesktopHover = window.matchMedia("(hover: hover)");
+  const mqMobile = window.matchMedia("(max-width: 860px)");
+  const mqReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const isDesktopHover = () => mqDesktopHover.matches;
+  const isMobile = () => mqMobile.matches;
 
   const closeDropdowns = () => {
     document.querySelectorAll(".nav-drop.open").forEach((item) => {
@@ -20,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
     closeDropdowns();
   };
 
-  /* =========================================
+  /* ======================================================
      BURGER TOGGLE
-  ========================================= */
+  ====================================================== */
   if (burger) {
     burger.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -32,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================
+  /* ======================================================
      COMPACT HEADER ON SCROLL
-  ========================================= */
+  ====================================================== */
   const handleScroll = () => {
     if (!topbar) return;
     topbar.classList.toggle("compact", window.scrollY > 60);
@@ -43,49 +50,47 @@ document.addEventListener("DOMContentLoaded", () => {
   handleScroll();
   window.addEventListener("scroll", handleScroll, { passive: true });
 
-  /* =========================================
+  /* ======================================================
      MOBILE DROPDOWN (DOBLE TAP)
      1er tap: abre dropdown (no navega)
      2do tap: navega al href
-  ========================================= */
+  ====================================================== */
   document.querySelectorAll(".nav-drop > .pill").forEach((trigger) => {
     trigger.addEventListener("click", function (e) {
       const parent = this.closest(".nav-drop");
       const dropMenu = parent?.querySelector(".drop-menu");
       if (!parent || !dropMenu) return;
 
-      // Desktop: hover manda (no tocamos comportamiento)
+      // Desktop: hover manda
       if (isDesktopHover()) return;
 
-      // Solo en mobile aplicamos doble tap
+      // Solo mobile
       if (!isMobile()) return;
 
       const alreadyOpen = parent.classList.contains("open");
 
-      // 2do tap -> navegar (cerramos antes de cambiar de página)
+      // 2do tap: navegar (cerramos antes)
       if (alreadyOpen) {
         closeMenu();
-        return; // no preventDefault -> navega al href
+        return; // no preventDefault => navega
       }
 
-      // 1er tap -> abrir dropdown
+      // 1er tap: abrir
       e.preventDefault();
       e.stopPropagation();
 
-      // Asegura drawer abierto
       body.classList.add("menu-open");
       burger?.setAttribute("aria-expanded", "true");
 
-      // Cierra otros dropdowns y abre este
       closeDropdowns();
       parent.classList.add("open");
       this.setAttribute("aria-expanded", "true");
     });
   });
 
-  /* =========================================
+  /* ======================================================
      CERRAR MENÚ AL TOCAR LINKS NORMALES
-  ========================================= */
+  ====================================================== */
   document
     .querySelectorAll(".nav a.pill:not(.nav-drop > .pill)")
     .forEach((link) => {
@@ -95,9 +100,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-  /* =========================================
+  /* ======================================================
      CERRAR AL TOCAR FUERA (MOBILE)
-  ========================================= */
+  ====================================================== */
   document.addEventListener("click", (e) => {
     if (!isMobile()) return;
     if (!body.classList.contains("menu-open")) return;
@@ -110,26 +115,23 @@ document.addEventListener("DOMContentLoaded", () => {
     closeMenu();
   });
 
-  /* =========================================
-     ESC para cerrar todo
-  ========================================= */
+  /* ======================================================
+     ESC PARA CERRAR TODO
+  ====================================================== */
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     closeMenu();
   });
 
-  /* =========================================
+  /* ======================================================
      RESIZE: si pasas a desktop, limpia estados mobile
-  ========================================= */
+  ====================================================== */
   window.addEventListener(
     "resize",
     () => {
       if (!isMobile()) {
-        body.classList.remove("menu-open");
-        burger?.setAttribute("aria-expanded", "false");
-        closeDropdowns();
-
-        // opcional: asegura aria-expanded false en desktop
+        closeMenu();
+        // opcional: en desktop deja aria-expanded en false
         document.querySelectorAll(".nav-drop > .pill").forEach((a) => {
           a.setAttribute("aria-expanded", "false");
         });
@@ -137,235 +139,145 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     { passive: true },
   );
-});
 
-/* =========================================
-   HERO CAROUSEL (Desktop: flechas + dots)
-   Mobile: swipe con scroll-snap (CSS)
-========================================= */
-(function initHeroCarousel() {
-  const root = document.querySelector(".hero-carousel");
-  if (!root) return;
+  /* ======================================================
+     HERO CAROUSEL (Desktop: flechas + dots + autoplay)
+     Mobile: swipe con scroll-snap (CSS)
+  ====================================================== */
+  const initHeroCarousel = () => {
+    const root = document.querySelector(".hero-carousel");
+    if (!root) return;
 
-  const viewport = root.querySelector(".carousel-viewport");
-  const track = root.querySelector(".carousel-track");
-  const slides = Array.from(root.querySelectorAll(".carousel-slide"));
-  const prevBtn = root.querySelector(".carousel-btn.prev");
-  const nextBtn = root.querySelector(".carousel-btn.next");
-  const dotsWrap = root.querySelector(".carousel-dots");
+    const track = root.querySelector(".carousel-track");
+    const slides = Array.from(root.querySelectorAll(".carousel-slide"));
+    const prevBtn = root.querySelector(".carousel-btn.prev");
+    const nextBtn = root.querySelector(".carousel-btn.next");
+    const dotsWrap = root.querySelector(".carousel-dots");
 
-  if (!track || slides.length === 0) return;
+    if (!track || slides.length === 0) return;
 
-  let index = 0;
+    let index = 0;
 
-  const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
+    // Autoplay
+    const AUTOPLAY_MS = 4500;
+    let autoplayTimer = null;
+    let userInteracted = false;
 
-  const buildDots = () => {
-    if (!dotsWrap) return;
-    dotsWrap.innerHTML = "";
+    const buildDots = () => {
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = "";
 
-    slides.forEach((_, i) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "carousel-dot" + (i === 0 ? " is-active" : "");
-      b.setAttribute("aria-label", `Ir al slide ${i + 1}`);
-      b.addEventListener("click", () => goTo(i));
-      dotsWrap.appendChild(b);
-    });
-  };
-
-  const syncDots = () => {
-    if (!dotsWrap) return;
-    dotsWrap.querySelectorAll(".carousel-dot").forEach((d, i) => {
-      d.classList.toggle("is-active", i === index);
-    });
-  };
-
-  const goTo = (i) => {
-    index = (i + slides.length) % slides.length;
-
-    // En mobile usamos scroll-snap, no transform
-    if (isMobile()) {
-      const target = slides[index];
-      target.scrollIntoView({
-        behavior: "smooth",
-        inline: "start",
-        block: "nearest",
+      slides.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = `carousel-dot${i === 0 ? " is-active" : ""}`;
+        b.setAttribute("aria-label", `Ir al slide ${i + 1}`);
+        b.addEventListener("click", () => {
+          userInteracted = true;
+          stopAutoplay();
+          goTo(i);
+        });
+        dotsWrap.appendChild(b);
       });
+    };
+
+    const syncDots = () => {
+      if (!dotsWrap) return;
+      dotsWrap.querySelectorAll(".carousel-dot").forEach((d, i) => {
+        d.classList.toggle("is-active", i === index);
+      });
+    };
+
+    const goTo = (i) => {
+      index = (i + slides.length) % slides.length;
+
+      // Mobile: scroll-snap (no transform)
+      if (isMobile()) {
+        slides[index].scrollIntoView({
+          behavior: "smooth",
+          inline: "start",
+          block: "nearest",
+        });
+        syncDots();
+        return;
+      }
+
+      track.style.transform = `translateX(-${index * 100}%)`;
       syncDots();
-      return;
-    }
+    };
 
-    track.style.transform = `translateX(-${index * 100}%)`;
-    syncDots();
-  };
+    const next = () => goTo(index + 1);
+    const prev = () => goTo(index - 1);
 
-  const next = () => goTo(index + 1);
-  const prev = () => goTo(index - 1);
+    const startAutoplay = () => {
+      if (mqReducedMotion.matches) return;
+      if (userInteracted) return;
+      if (slides.length <= 1) return;
 
-  prevBtn?.addEventListener("click", prev);
-  nextBtn?.addEventListener("click", next);
+      stopAutoplay();
+      autoplayTimer = window.setInterval(() => {
+        if (document.hidden) return;
+        next();
+      }, AUTOPLAY_MS);
+    };
 
-  // Teclado (solo desktop)
-  root.addEventListener("keydown", (e) => {
-    if (isMobile()) return;
-    if (e.key === "ArrowLeft") prev();
-    if (e.key === "ArrowRight") next();
-  });
-
-  // Si cambias tamaño, re-sincroniza
-  window.addEventListener("resize", () => {
-    // Reset transform cuando entras a mobile
-    if (isMobile()) track.style.transform = "";
-    goTo(index);
-  });
-
-  buildDots();
-  goTo(0);
-})();
-
-/* =========================================
-   HERO CAROUSEL (Desktop: flechas + dots + autoplay)
-   Mobile: swipe con scroll-snap (CSS)
-========================================= */
-(function initHeroCarousel() {
-  const root = document.querySelector(".hero-carousel");
-  if (!root) return;
-
-  const viewport = root.querySelector(".carousel-viewport");
-  const track = root.querySelector(".carousel-track");
-  const slides = Array.from(root.querySelectorAll(".carousel-slide"));
-  const prevBtn = root.querySelector(".carousel-btn.prev");
-  const nextBtn = root.querySelector(".carousel-btn.next");
-  const dotsWrap = root.querySelector(".carousel-dots");
-
-  if (!track || slides.length === 0) return;
-
-  let index = 0;
-
-  // Autoplay settings
-  const AUTOPLAY_MS = 4500; // ajusta a gusto
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-
-  let autoplayTimer = null;
-  let userInteracted = false;
-
-  const isMobile = () => window.matchMedia("(max-width: 860px)").matches;
-
-  const buildDots = () => {
-    if (!dotsWrap) return;
-    dotsWrap.innerHTML = "";
-
-    slides.forEach((_, i) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "carousel-dot" + (i === 0 ? " is-active" : "");
-      b.setAttribute("aria-label", `Ir al slide ${i + 1}`);
-      b.addEventListener("click", () => {
-        userInteracted = true;
-        stopAutoplay();
-        goTo(i);
-      });
-      dotsWrap.appendChild(b);
-    });
-  };
-
-  const syncDots = () => {
-    if (!dotsWrap) return;
-    dotsWrap.querySelectorAll(".carousel-dot").forEach((d, i) => {
-      d.classList.toggle("is-active", i === index);
-    });
-  };
-
-  const goTo = (i) => {
-    index = (i + slides.length) % slides.length;
-
-    // Mobile: usamos scroll-snap (no transform)
-    if (isMobile()) {
-      slides[index].scrollIntoView({
-        behavior: "smooth",
-        inline: "start",
-        block: "nearest",
-      });
-      syncDots();
-      return;
-    }
-
-    track.style.transform = `translateX(-${index * 100}%)`;
-    syncDots();
-  };
-
-  const next = () => goTo(index + 1);
-  const prev = () => goTo(index - 1);
-
-  const startAutoplay = () => {
-    if (prefersReducedMotion) return;
-    if (userInteracted) return; // si el usuario ya tocó algo, no insistimos
-    if (slides.length <= 1) return;
-
-    stopAutoplay();
-    autoplayTimer = window.setInterval(() => {
-      // si la pestaña no está visible, no avances
-      if (document.hidden) return;
-      next();
-    }, AUTOPLAY_MS);
-  };
-
-  const stopAutoplay = () => {
-    if (autoplayTimer) {
+    const stopAutoplay = () => {
+      if (!autoplayTimer) return;
       window.clearInterval(autoplayTimer);
       autoplayTimer = null;
-    }
-  };
+    };
 
-  // Botones
-  prevBtn?.addEventListener("click", () => {
-    userInteracted = true;
-    stopAutoplay();
-    prev();
-  });
-
-  nextBtn?.addEventListener("click", () => {
-    userInteracted = true;
-    stopAutoplay();
-    next();
-  });
-
-  // Teclado (desktop)
-  root.addEventListener("keydown", (e) => {
-    if (isMobile()) return;
-    if (e.key === "ArrowLeft") {
+    // Botones
+    prevBtn?.addEventListener("click", () => {
       userInteracted = true;
       stopAutoplay();
       prev();
-    }
-    if (e.key === "ArrowRight") {
+    });
+
+    nextBtn?.addEventListener("click", () => {
       userInteracted = true;
       stopAutoplay();
       next();
-    }
-  });
+    });
 
-  // Pausa al hover / focus
-  root.addEventListener("mouseenter", stopAutoplay);
-  root.addEventListener("mouseleave", startAutoplay);
-  root.addEventListener("focusin", stopAutoplay);
-  root.addEventListener("focusout", startAutoplay);
+    // Teclado (solo desktop)
+    root.addEventListener("keydown", (e) => {
+      if (isMobile()) return;
 
-  // Si cambias tamaño, re-sincroniza
-  window.addEventListener("resize", () => {
-    if (isMobile()) track.style.transform = "";
-    goTo(index);
-  });
+      if (e.key === "ArrowLeft") {
+        userInteracted = true;
+        stopAutoplay();
+        prev();
+      }
 
-  // Si la pestaña vuelve a ser visible, reanuda autoplay (si aplica)
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) startAutoplay();
-  });
+      if (e.key === "ArrowRight") {
+        userInteracted = true;
+        stopAutoplay();
+        next();
+      }
+    });
 
-  buildDots();
-  goTo(0);
-  startAutoplay();
-})();
+    // Pausa al hover/focus
+    root.addEventListener("mouseenter", stopAutoplay);
+    root.addEventListener("mouseleave", startAutoplay);
+    root.addEventListener("focusin", stopAutoplay);
+    root.addEventListener("focusout", startAutoplay);
+
+    // Resize: resync
+    window.addEventListener("resize", () => {
+      if (isMobile()) track.style.transform = "";
+      goTo(index);
+    });
+
+    // Visibility
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) startAutoplay();
+    });
+
+    buildDots();
+    goTo(0);
+    startAutoplay();
+  };
+
+  initHeroCarousel();
+});

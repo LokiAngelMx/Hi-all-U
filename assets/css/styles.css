@@ -12,9 +12,12 @@
   --container: 1440px;
   --gutter: 10px;
   --section-gap: 18px;
+  --radius: 8px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -83,7 +86,7 @@ body {
 }
 
 /* ======================================================
-   NAVIGATION (DESKTOP)
+   NAVIGATION
 ====================================================== */
 .nav {
   width: 100%;
@@ -150,6 +153,7 @@ body {
   z-index: 60;
 }
 
+/* puente invisible para evitar “gap” en hover */
 .drop-menu::before {
   content: "";
   position: absolute;
@@ -267,58 +271,16 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   HERO (SLIDES)
+   UTILS
 ====================================================== */
-.hero {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 18px;
-  align-items: stretch;
-}
-
-.hero__media {
-  width: 100%;
-  min-height: 420px;
-  border-radius: 6px;
-  overflow: hidden;
-  background: #bfc9d6;
-}
-
-.hero__img {
-  width: 100%;
-  height: 100%;
-  min-height: 420px;
-  display: block;
-  object-fit: cover;
-  object-position: center;
-}
-
-.hero__card {
-  background: var(--paper);
-  padding: 26px;
-  border-radius: 6px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
-}
-
 .tag {
   display: inline-block;
   border: 1px solid #111;
   padding: 6px 10px;
   font-size: 12px;
   margin-bottom: 10px;
-}
-
-.hero__card h1 {
-  font-size: 44px;
-  margin: 6px 0 10px;
-  line-height: 1.05;
-  color: var(--paper-ink);
-}
-
-.hero__card p {
-  font-size: 16px;
-  margin: 0 0 10px;
-  color: #222;
+  background: #fff;
+  color: #111;
 }
 
 .link {
@@ -327,7 +289,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   HERO CAROUSEL
+   HERO CAROUSEL (NO SE ASOMA EL SIGUIENTE SLIDE)
 ====================================================== */
 .hero-carousel {
   position: relative;
@@ -337,7 +299,8 @@ body.menu-open .burger span:nth-child(3) {
 
 .carousel-viewport {
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: var(--radius);
+  padding-right: 0; /* ✅ NO usar padding aquí */
 }
 
 .carousel-track {
@@ -351,8 +314,11 @@ body.menu-open .burger span:nth-child(3) {
 .carousel-slide {
   flex: 0 0 100%;
   padding: 0;
+  overflow: hidden; /* ✅ recorta overlay dentro del slide */
+  border-radius: var(--radius);
 }
 
+/* Flechas */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -387,6 +353,7 @@ body.menu-open .burger span:nth-child(3) {
   right: 10px;
 }
 
+/* Dots */
 .carousel-dots {
   display: flex;
   gap: 10px;
@@ -410,14 +377,77 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   HOME PANELS (MISMO ANCHO QUE CARRUSEL)
+   HERO OVERLAY (MOCKUP)
+====================================================== */
+.hero--overlay {
+  position: relative;
+  height: 460px;
+
+  /* ✅ “aire” para el cuadro blanco SIN invadir otro slide */
+  padding-right: 70px;
+}
+
+.hero--overlay .hero__media {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 54%; /* controla cuánto “pedazo” se ve de la imagen */
+  height: 100%;
+
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #bfc9d6;
+}
+
+.hero--overlay .hero__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero__card--overlay {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: min(720px, 52%);
+  background: #fff;
+  color: #111;
+
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  border-radius: 4px;
+
+  padding: 26px;
+}
+
+.hero__card--overlay h1 {
+  font-size: 54px;
+  line-height: 1.02;
+  margin: 8px 0 12px;
+  color: var(--paper-ink);
+}
+
+.hero__card--overlay p {
+  font-size: 15px;
+  line-height: 1.45;
+  margin: 0 0 12px;
+  color: #222;
+}
+
+/* ======================================================
+   HOME PANELS
 ====================================================== */
 .home-panels {
   margin-top: var(--section-gap);
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 18px;
-  align-items: stretch; /* ambos paneles misma altura */
+  align-items: stretch;
 }
 
 .panel {
@@ -426,7 +456,7 @@ body.menu-open .burger span:nth-child(3) {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
 
   display: flex;
-  flex-direction: column; /* para que el grid interno pueda llenar alto */
+  flex-direction: column;
 }
 
 .panel__header {
@@ -445,7 +475,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   K-DRAMAS GRID (SIN HUECO ABAJO)
+   K-DRAMAS GRID
 ====================================================== */
 .kdramas-grid {
   padding: 12px;
@@ -453,9 +483,9 @@ body.menu-open .burger span:nth-child(3) {
   grid-template-columns: 1fr 1fr;
   gap: 14px 18px;
 
-  flex: 1; /* llena el panel */
+  flex: 1;
   align-content: stretch;
-  grid-auto-rows: 1fr; /* filas iguales => no queda “aire” raro */
+  grid-auto-rows: 1fr;
 }
 
 .mini-card {
@@ -496,7 +526,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   PICKS GRID (VIDEO ABAJO DEL TEXTO + SIN ESPACIO GRIS)
+   PICKS GRID
 ====================================================== */
 .picks-grid {
   padding: 12px;
@@ -504,9 +534,9 @@ body.menu-open .burger span:nth-child(3) {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 
-  flex: 1; /* llena el panel */
+  flex: 1;
   align-content: stretch;
-  grid-auto-rows: 1fr; /* cards igual alto */
+  grid-auto-rows: 1fr;
 }
 
 .pick-card {
@@ -515,7 +545,7 @@ body.menu-open .burger span:nth-child(3) {
 
   display: flex;
   flex-direction: column;
-  min-height: 0; /* evita desbordes raros en grids */
+  min-height: 0;
 }
 
 .pick-card__media {
@@ -553,33 +583,30 @@ body.menu-open .burger span:nth-child(3) {
   text-decoration: underline;
 }
 
-/* ✅ Pick 2: TEXTO ARRIBA + VIDEO ABAJO (NO A LA IZQUIERDA) */
+/* Pick 2: texto arriba + video abajo */
 .picks-grid .pick-card:nth-child(2) {
   display: flex;
-  flex-direction: column; /* apila */
+  flex-direction: column;
 }
 
-/* Video thumb ocupa su espacio exacto y NO deja fondo gris */
+/* Video: sin gris abajo */
 .pick-card__media--video {
   position: relative;
   display: block;
-
   width: 100%;
-  height: 170px; /* mismo alto visual que las otras imágenes */
+  height: 170px;
   overflow: hidden;
-
-  background: transparent; /* 👈 no gris/negro */
+  background: transparent;
 }
 
 .pick-card__media--video img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover; /* sin barras negras */
+  object-fit: cover;
   object-position: center;
 }
 
-/* Play overlay */
 .video-badge {
   position: absolute;
   inset: 0;
@@ -597,7 +624,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   FOOTER (CENTRADO)
+   FOOTER
 ====================================================== */
 .site-footer {
   background: #0b0b0b;
@@ -704,14 +731,6 @@ body.menu-open .burger span:nth-child(3) {
    RESPONSIVE
 ====================================================== */
 @media (max-width: 980px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-
-  .hero__card h1 {
-    font-size: 34px;
-  }
-
   .home-panels {
     grid-template-columns: 1fr;
   }
@@ -720,9 +739,28 @@ body.menu-open .burger span:nth-child(3) {
     grid-template-columns: 1fr;
   }
 
-  .site-footer__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 28px;
+  /* Overlay: en tablet/móvil se vuelve “stack” */
+  .hero--overlay {
+    height: auto;
+    padding-right: 0;
+  }
+
+  .hero--overlay .hero__media {
+    position: static;
+    width: 100%;
+    height: 420px;
+    border-radius: var(--radius);
+  }
+
+  .hero__card--overlay {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .hero__card--overlay h1 {
+    font-size: 36px;
   }
 }
 
@@ -766,7 +804,6 @@ body.menu-open .burger span:nth-child(3) {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-
     transition:
       transform 220ms ease,
       opacity 220ms ease,
