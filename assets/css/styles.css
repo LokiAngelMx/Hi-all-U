@@ -4,6 +4,7 @@
 :root {
   --bg: #0b0b0b;
   --ink: #f2f2f2;
+
   --paper: #fff;
   --paper-ink: #121212;
 
@@ -117,7 +118,7 @@ body {
   color: rgba(255, 255, 255, 0.88);
 }
 
-/* Compact (scroll) */
+/* Compact header (scroll) */
 .topbar.compact .topbar__inner {
   flex-direction: row;
   justify-content: space-between;
@@ -215,6 +216,7 @@ body {
   z-index: 60;
 }
 
+/* hover “bridge” */
 .drop-menu::before {
   content: "";
   position: absolute;
@@ -287,7 +289,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   PANELS (base)
+   PANELS (BASE)
 ====================================================== */
 .panel {
   background: #fff;
@@ -346,7 +348,7 @@ body.menu-open .burger span:nth-child(3) {
   border-radius: var(--radius);
 }
 
-/* arrows */
+/* Arrows */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -381,7 +383,7 @@ body.menu-open .burger span:nth-child(3) {
   right: 10px;
 }
 
-/* dots */
+/* Dots */
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -405,7 +407,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   HERO OVERLAY (mockup)
+   HERO OVERLAY (MOCKUP)
 ====================================================== */
 .hero--overlay {
   position: relative;
@@ -576,13 +578,13 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   ADS + CARDS (page 2)
+   ADS + CARDS (PAGE 2)
 ====================================================== */
 .ads-and-cards {
   margin-top: 18px;
 }
 
-/* ads row */
+/* Ads row */
 .ads-row {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -615,7 +617,7 @@ body.menu-open .burger span:nth-child(3) {
   height: 120px;
 }
 
-/* cards row */
+/* Cards row */
 .cards-row {
   display: grid;
   grid-template-columns: 0.85fr 1.5fr 0.85fr;
@@ -624,7 +626,7 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   EMBEDS (Instagram / TikTok)
+   EMBEDS (Instagram / TikTok / Spotify)
 ====================================================== */
 .embed {
   width: 100%;
@@ -641,6 +643,7 @@ body.menu-open .burger span:nth-child(3) {
   display: block;
 }
 
+/* Instagram / TikTok */
 .embed--ig,
 .embed--tt {
   height: 520px;
@@ -648,8 +651,8 @@ body.menu-open .burger span:nth-child(3) {
 
 /* Post panel: que el embed llene */
 .panel--post .panel__content {
-  flex: 1;
   display: flex;
+  flex: 1;
 }
 
 .panel--post .embed--ig {
@@ -928,6 +931,164 @@ body.menu-open .burger span:nth-child(3) {
   color: rgba(255, 255, 255, 0.78);
 }
 
+/* ===========================
+   MOCKUP 3 (grid y alturas)
+=========================== */
+.mock3 {
+  margin-top: var(--section-gap);
+}
+
+.mock3__top {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+
+/* ✅ 1 fila, 3 columnas, TODOS estiran a la misma altura */
+.mock3__grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.75fr 0.6fr;
+  gap: 18px;
+  align-items: stretch; /* clave */
+}
+
+/* ✅ cada columna ocupa el 100% de la altura de la fila */
+.mock3__charts,
+.mock3__center,
+.mock3__rail {
+  align-self: stretch;
+}
+
+/* Centro: dos cards apiladas */
+.mock3__center {
+  display: grid;
+  gap: 18px;
+}
+
+/* Rail: ads apilados */
+.mock3__rail {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+/* Sizes rail */
+.ad--rail-square {
+  height: 210px;
+}
+
+.ad--rail-tall {
+  height: 520px;
+}
+
+/* ======================================================
+   STORY GRID (Beyond + Cultura: mismo estilo)
+====================================================== */
+.story-grid {
+  padding: 12px; /* aire dentro de la card */
+}
+
+.story-grid__frame {
+  border: 1px solid var(--panel-border);
+  background: #fff;
+  padding: 12px;
+
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 12px;
+  align-items: start;
+}
+
+/* Bloque grande */
+.story-grid__feature {
+  display: block;
+  text-decoration: none;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  background: #fff;
+}
+
+.story-grid__feature img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+}
+
+.story-grid__caption {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Mini cards */
+.story-grid__side {
+  display: grid;
+  gap: 12px;
+}
+
+.story-grid__mini {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
+  align-items: start;
+
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  overflow: hidden;
+  text-decoration: none;
+  color: #111;
+}
+
+.story-grid__mini img {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  display: block;
+}
+
+.story-grid__mini p {
+  margin: 0;
+  padding: 8px 10px 8px 0;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* ======================================================
+   SPOTIFY (padding interno y full height)
+====================================================== */
+.mock3__charts {
+  display: flex;
+  flex-direction: column;
+}
+
+.mock3__charts .panel__content {
+  flex: 1;
+  display: flex;
+  padding: 12px; /* margen interno */
+}
+
+/* Marco interno */
+.embed--sp {
+  flex: 1;
+  display: flex;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.embed--sp iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
 /* ======================================================
    RESPONSIVE
 ====================================================== */
@@ -942,6 +1103,31 @@ body.menu-open .burger span:nth-child(3) {
 
   .music-bottom {
     grid-template-columns: 1fr;
+  }
+
+  .mock3__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mock3__top {
+    grid-template-columns: 1fr;
+  }
+
+  .ad--rail-square,
+  .ad--rail-tall {
+    height: 180px;
+  }
+
+  .story-grid__frame {
+    grid-template-columns: 1fr;
+  }
+
+  .story-grid__mini {
+    grid-template-columns: 140px 1fr;
+  }
+
+  .story-grid__mini img {
+    width: 140px;
   }
 }
 
@@ -990,7 +1176,7 @@ body.menu-open .burger span:nth-child(3) {
     display: none;
   }
 
-  /* mobile nav drawer */
+  /* Mobile nav drawer */
   .nav {
     position: absolute;
     top: 100%;
@@ -1065,7 +1251,7 @@ body.menu-open .burger span:nth-child(3) {
     background: rgba(255, 255, 255, 0.06);
   }
 
-  /* carousel mobile: swipe */
+  /* Carousel mobile: swipe */
   .carousel-btn {
     display: none;
   }
@@ -1086,7 +1272,7 @@ body.menu-open .burger span:nth-child(3) {
     flex: 0 0 100%;
   }
 
-  /* ads */
+  /* Ads row (page 2) */
   .ads-row {
     grid-template-columns: 1fr;
   }

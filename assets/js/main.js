@@ -64,11 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const alreadyOpen = parent.classList.contains("open");
 
+      // 2do tap: navegar
       if (alreadyOpen) {
         closeMenu();
         return;
       }
 
+      // 1er tap: abrir
       e.preventDefault();
       e.stopPropagation();
 
@@ -134,20 +136,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ======================================================
      HERO CAROUSEL
+     FIX: en mobile ya NO usamos scrollIntoView (causaba jump arriba)
   ====================================================== */
   const initHeroCarousel = () => {
     const root = document.querySelector(".hero-carousel");
     if (!root) return;
 
+    const viewport = root.querySelector(".carousel-viewport");
     const track = root.querySelector(".carousel-track");
     const slides = Array.from(root.querySelectorAll(".carousel-slide"));
     const prevBtn = root.querySelector(".carousel-btn.prev");
     const nextBtn = root.querySelector(".carousel-btn.next");
     const dotsWrap = root.querySelector(".carousel-dots");
 
-    if (!track || slides.length === 0) return;
+    if (!track || !viewport || slides.length === 0) return;
 
     let index = 0;
+
+    // Autoplay
     const AUTOPLAY_MS = 4500;
     let autoplayTimer = null;
     let userInteracted = false;
@@ -155,10 +161,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const buildDots = () => {
       if (!dotsWrap) return;
       dotsWrap.innerHTML = "";
+
       slides.forEach((_, i) => {
         const b = document.createElement("button");
         b.type = "button";
         b.className = `carousel-dot${i === 0 ? " is-active" : ""}`;
+        b.setAttribute("aria-label", `Ir al slide ${i + 1}`);
         b.addEventListener("click", () => {
           userInteracted = true;
           stopAutoplay();
@@ -175,19 +183,24 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     };
 
-    const goTo = (i) => {
+    const goTo = (i, opts = { behavior: "smooth" }) => {
       index = (i + slides.length) % slides.length;
 
+      // ✅ Mobile: mover SOLO scroll horizontal (no toca scroll vertical)
       if (isMobile()) {
-        slides[index].scrollIntoView({
-          behavior: "smooth",
-          inline: "start",
-          block: "nearest",
+        const target = slides[index];
+        const left = target.offsetLeft;
+
+        viewport.scrollTo({
+          left,
+          behavior: mqReducedMotion.matches ? "auto" : opts.behavior,
         });
+
         syncDots();
         return;
       }
 
+      // Desktop: transform
       track.style.transform = `translateX(-${index * 100}%)`;
       syncDots();
     };
@@ -213,6 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
       autoplayTimer = null;
     };
 
+    // Botones
     prevBtn?.addEventListener("click", () => {
       userInteracted = true;
       stopAutoplay();
@@ -225,11 +239,62 @@ document.addEventListener("DOMContentLoaded", () => {
       next();
     });
 
+    // Pausa al hover (desktop)
     root.addEventListener("mouseenter", stopAutoplay);
     root.addEventListener("mouseleave", startAutoplay);
 
+    // Sync dots al hacer swipe en mobile
+    let raf = null;
+    viewport.addEventListener(
+      "scroll",
+      () => {
+        if (!isMobile()) return;
+
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const x = viewport.scrollLeft;
+
+          let closest = 0;
+          let best = Infinity;
+
+          slides.forEach((s, i) => {
+            const d = Math.abs(s.offsetLeft - x);
+            if (d < best) {
+              best = d;
+              closest = i;
+            }
+          });
+
+          if (closest !== index) {
+            index = closest;
+            syncDots();
+          }
+        });
+      },
+      { passive: true },
+    );
+
+    // Resize: en mobile NO forzamos re-centrado para evitar brincos
+    window.addEventListener(
+      "resize",
+      () => {
+        if (isMobile()) {
+          track.style.transform = "";
+          syncDots();
+          return;
+        }
+        goTo(index, { behavior: "auto" });
+      },
+      { passive: true },
+    );
+
+    // Visibility
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) startAutoplay();
+    });
+
     buildDots();
-    goTo(0);
+    goTo(0, { behavior: "auto" });
     startAutoplay();
   };
 
