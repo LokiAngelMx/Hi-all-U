@@ -102,7 +102,7 @@
 
                                 <p>
                                     Investigan al actor por presunta evasión...
-                                    <br><br>
+                                    <br /><br />
                                     <em>by: Editorial</em>
                                 </p>
 
@@ -125,7 +125,7 @@
 
                                 <p>
                                     Investigan al actor por presunta evasión...
-                                    <br><br>
+                                    <br /><br />
                                     <em>by: Editorial</em>
                                 </p>
 
@@ -148,7 +148,7 @@
 
                                 <p>
                                     Investigan al actor por presunta evasión...
-                                    <br><br>
+                                    <br /><br />
                                     <em>by: Editorial</em>
                                 </p>
 
@@ -163,19 +163,15 @@
             <div class="carousel-dots" role="tablist" aria-label="Paginación del carrusel"></div>
         </section>
 
-        <!-- ==============================
-        SECCIÓN 2 (tarjetitas debajo del carrusel)
-        * Mismo “gutter” que el carrusel: va dentro de .page (container)
-      ============================== -->
+        <!-- SECCIÓN 2: K-DRAMAS + / PICKS -->
         <section class="home-panels" aria-label="Secciones destacadas">
-            <!-- Panel Izquierdo: K-Dramas + -->
+            <!-- K-Dramas -->
             <section class="panel panel--kdramas" aria-label="K-Dramas destacados">
                 <div class="panel__header">
                     <h2 class="panel__title">K-Dramas +</h2>
                 </div>
 
                 <div class="kdramas-grid">
-                    <!-- Item 1 -->
                     <article class="mini-card">
                         <a class="mini-card__media" href="#">
                             <img src="assets/img/placeholder.jpg" alt="IU y Byeon WooSeok" loading="lazy"
@@ -186,19 +182,18 @@
                         </div>
                     </article>
 
-                    <!-- Item 2 -->
                     <article class="mini-card">
                         <a class="mini-card__media" href="#">
                             <img src="assets/img/placeholder.jpg" alt="¿Puede traducirse este amor?" loading="lazy"
                                 decoding="async" />
                         </a>
                         <div class="mini-card__body">
-                            <a class="mini-card__text" href="#"><em>“¿Puede traducirse este amor?”</em> 9M de vistas
-                                dicen que sí.</a>
+                            <a class="mini-card__text" href="#">
+                                <em>“¿Puede traducirse este amor?”</em> 9M de vistas dicen que sí.
+                            </a>
                         </div>
                     </article>
 
-                    <!-- Item 3 -->
                     <article class="mini-card">
                         <a class="mini-card__media" href="#">
                             <img src="assets/img/placeholder.jpg" alt="Study Group 2" loading="lazy" decoding="async" />
@@ -208,20 +203,20 @@
                         </div>
                     </article>
 
-                    <!-- Item 4 -->
                     <article class="mini-card">
                         <a class="mini-card__media" href="#">
                             <img src="assets/img/placeholder.jpg" alt="Spring Fever" loading="lazy" decoding="async" />
                         </a>
                         <div class="mini-card__body">
-                            <a class="mini-card__text" href="#">“Spring Fever” llega a su fin con una historia
-                                inolvidable.</a>
+                            <a class="mini-card__text" href="#">
+                                “Spring Fever” llega a su fin con una historia inolvidable.
+                            </a>
                         </div>
                     </article>
                 </div>
             </section>
 
-            <!-- Panel Derecho: Picks de la Semana -->
+            <!-- Picks -->
             <section class="panel panel--picks" aria-label="Picks de la semana">
                 <div class="panel__header">
                     <h2 class="panel__title">Picks de la Semana</h2>
@@ -234,6 +229,7 @@
                             <img src="assets/img/placeholder.jpg" alt="Portada del álbum" loading="lazy"
                                 decoding="async" />
                         </a>
+
                         <div class="pick-card__body">
                             <h3 class="pick-card__headline">‘Do it’ Stray Kids</h3>
                             <p class="pick-card__desc">
@@ -244,31 +240,131 @@
                         </div>
                     </article>
 
-                    <!-- Pick 2 (YouTube thumbnail 16:9 sin deformarse) -->
+                    <!-- Pick 2 (YouTube: preview → reproduce en página) -->
                     <article class="pick-card">
                         <div class="pick-card__body">
                             <h3 class="pick-card__headline">‘BLACKPINK - 뛰어(JUMP)’</h3>
                             <p class="pick-card__desc">
                                 Regresa el Pink a la escena musical para reclamar su lugar.
-                                <a class="pick-card__link"
-                                    href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
+                                <a class="pick-card__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                                     target="_blank" rel="noopener">
                                     Ver en YouTube
                                 </a>
                             </p>
                         </div>
 
-                        <a class="pick-card__media pick-card__media--video"
-                            href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"
-                            target="_blank" rel="noopener" aria-label="Ver video en YouTube">
-                            <!-- ✅ usa hqdefault para evitar casos donde maxres no existe -->
-                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="BLACKPINK - JUMP"
-                                loading="lazy" decoding="async" />
-                            <span class="video-badge" aria-hidden="true">▶</span>
-                        </a>
+                        <div class="yt-embed" data-video-id="dQw4w9WgXcQ">
+                            <button class="yt-embed__preview" type="button" aria-label="Reproducir video">
+                                <img class="yt-embed__thumb" src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
+                                    alt="Video de YouTube" loading="lazy" decoding="async" />
+                                <span class="yt-embed__play" aria-hidden="true">▶</span>
+                            </button>
+
+                            <div class="yt-embed__fallback" hidden>
+                                Este video no permite reproducción aquí.
+                                <a class="pick-card__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                    target="_blank" rel="noopener">
+                                    Abrir en YouTube
+                                </a>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </section>
+        </section>
+
+        <!-- ADS + CARDS (mockup page 2) -->
+        <section class="ads-and-cards" aria-label="Anuncios y secciones">
+            <!-- Ads row -->
+            <div class="ads-row" aria-label="Anuncios">
+                <a class="ad ad--banner" href="#" target="_blank" rel="noopener" aria-label="Anuncio banner">
+                    <img src="assets/ads/placeholder.jpg" alt="Anuncio banner" loading="lazy" decoding="async" />
+                </a>
+
+                <a class="ad ad--square" href="#" target="_blank" rel="noopener" aria-label="Anuncio cuadrado">
+                    <img src="assets/ads/placeholder.jpg" alt="Anuncio cuadrado" loading="lazy" decoding="async" />
+                </a>
+            </div>
+
+            <!-- Cards row -->
+            <div class="cards-row" aria-label="Tarjetas principales">
+                <!-- Post de la Semana -->
+                <article class="panel panel--post" aria-label="Post de la Semana">
+                    <header class="panel__header">
+                        <h3 class="panel__title">‘Post de la Semana’</h3>
+                    </header>
+
+                    <div class="panel__content">
+                        <div class="embed embed--ig" aria-label="Instagram Reel">
+                            <iframe src="https://www.instagram.com/reel/DU2PHduCh4H/embed" title="Instagram Reel"
+                                loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Música & Idols -->
+                <article class="panel panel--music" aria-label="Música e Idols">
+                    <header class="panel__header">
+                        <h3 class="panel__title">Música &amp; Idols</h3>
+                    </header>
+
+                    <div class="panel__content music-grid">
+                        <a class="music-feature" href="#" target="_blank" rel="noopener">
+                            <img src="assets/music/placeholder.jpg" alt="Nota destacada" loading="lazy"
+                                decoding="async" />
+                            <div class="music-feature__text">
+                                <p>
+                                    <em>Sung-Hoon</em>, de ENHYPEN y ex-patinador profesional, cumple su sueño y llega a
+                                    las olimpiadas de
+                                    invierno como embajador. <span class="link">Leer más</span>
+                                </p>
+                            </div>
+                        </a>
+
+                        <div class="music-side">
+                            <a class="music-mini" href="#" target="_blank" rel="noopener">
+                                <img src="assets/music/placeholder.jpg" alt="Nota 1" loading="lazy" decoding="async" />
+                                <p>Ateez renueva contrato y anuncia su 13er álbum “GOLDEN HOUR: Part.4”</p>
+                            </a>
+
+                            <a class="music-mini" href="#" target="_blank" rel="noopener">
+                                <img src="assets/music/placeholder.jpg" alt="Nota 2" loading="lazy" decoding="async" />
+                                <p>Ya hay playlist para “DEADLINE”, el nuevo álbum de Blackpink.</p>
+                            </a>
+
+                            <a class="music-mini" href="#" target="_blank" rel="noopener">
+                                <img src="assets/music/placeholder.jpg" alt="Nota 3" loading="lazy" decoding="async" />
+                                <p>La gira más esperada: “BTS regresa a los escenarios!”</p>
+                            </a>
+                        </div>
+
+                        <a class="music-bottom" href="#" target="_blank" rel="noopener">
+                            <img src="assets/music/placeholder.jpg" alt="Nota inferior" loading="lazy"
+                                decoding="async" />
+                            <p><em>NewJeans</em> elimina a Danielle y Min Heejin de sus plataformas.</p>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Nuestras Redes -->
+                <article class="panel panel--social" aria-label="Nuestras Redes">
+                    <header class="panel__header">
+                        <h3 class="panel__title">Nuestras Redes</h3>
+                    </header>
+
+                    <div class="panel__content social-stack">
+                        <div class="social-logo">
+                            <img src="assets/img/placeholder.jpg" alt="Plataforma News" loading="lazy"
+                                decoding="async" />
+                        </div>
+
+                        <div class="embed embed--tt" aria-label="TikTok video">
+                            <iframe src="https://www.tiktok.com/embed/v2/7607064525115886870" title="TikTok video"
+                                loading="lazy" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </section>
     </main>
 

@@ -1,18 +1,23 @@
 /* ======================================================
-   VARIABLES + RESET
+   THEME + RESET
 ====================================================== */
 :root {
   --bg: #0b0b0b;
   --ink: #f2f2f2;
+  --paper: #fff;
+  --paper-ink: #121212;
+
   --line: rgba(255, 255, 255, 0.18);
   --shadow: rgba(0, 0, 0, 0.35);
-  --paper: #ffffff;
-  --paper-ink: #121212;
 
   --container: 1440px;
   --gutter: 10px;
   --section-gap: 18px;
+
   --radius: 8px;
+
+  --panel-border: rgba(0, 0, 0, 0.18);
+  --panel-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
 }
 
 *,
@@ -30,6 +35,33 @@ body {
   margin: 0;
   font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
   background: #eee;
+  color: #111;
+}
+
+/* ======================================================
+   LAYOUT
+====================================================== */
+.page {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 22px var(--gutter) 60px;
+}
+
+/* ======================================================
+   UTILS
+====================================================== */
+.link {
+  color: #111;
+  text-decoration: underline;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid #111;
+  background: #fff;
   color: #111;
 }
 
@@ -85,8 +117,40 @@ body {
   color: rgba(255, 255, 255, 0.88);
 }
 
+/* Compact (scroll) */
+.topbar.compact .topbar__inner {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px var(--gutter);
+}
+
+.topbar.compact .brand__logo {
+  width: 56px;
+  height: 56px;
+}
+
+.topbar.compact .nav {
+  width: auto;
+  flex: 1;
+}
+
+.topbar.compact .nav__list {
+  gap: 28px;
+}
+
+.topbar.compact .pill {
+  font-size: 16px;
+  padding: 10px 12px;
+}
+
+.topbar.compact .hero-meta {
+  display: none;
+}
+
 /* ======================================================
-   NAVIGATION
+   NAV
 ====================================================== */
 .nav {
   width: 100%;
@@ -130,9 +194,7 @@ body {
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* ======================================================
-   DROPDOWN
-====================================================== */
+/* Dropdown */
 .nav-drop {
   position: relative;
 }
@@ -153,7 +215,6 @@ body {
   z-index: 60;
 }
 
-/* puente invisible para evitar “gap” en hover */
 .drop-menu::before {
   content: "";
   position: absolute;
@@ -165,8 +226,8 @@ body {
 
 .drop-menu a {
   display: block;
-  padding: 10px;
   margin: 8px 0;
+  padding: 10px;
   text-align: center;
   font-size: 14px;
   text-decoration: none;
@@ -189,9 +250,7 @@ body {
   display: block;
 }
 
-/* ======================================================
-   BURGER
-====================================================== */
+/* Burger */
 .burger {
   display: none;
   width: 44px;
@@ -209,10 +268,10 @@ body {
   height: 2px;
   margin: 5px auto;
   background: rgba(255, 255, 255, 0.95);
+  transform-origin: center;
   transition:
     transform 220ms ease,
     opacity 180ms ease;
-  transform-origin: center;
 }
 
 body.menu-open .burger span:nth-child(1) {
@@ -228,68 +287,38 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   COMPACT HEADER (SCROLL)
+   PANELS (base)
 ====================================================== */
-.topbar.compact .topbar__inner {
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  padding: 14px var(--gutter);
+.panel {
+  background: #fff;
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
+  display: flex;
+  flex-direction: column;
 }
 
-.topbar.compact .brand__logo {
-  width: 56px;
-  height: 56px;
+.panel__header {
+  padding: 10px 12px 0;
 }
 
-.topbar.compact .nav {
-  width: auto;
+.panel__title {
+  display: inline-block;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  background: #fff;
+}
+
+.panel__content {
+  padding: 12px;
   flex: 1;
 }
 
-.topbar.compact .nav__list {
-  gap: 28px;
-}
-
-.topbar.compact .pill {
-  font-size: 16px;
-  padding: 10px 12px;
-}
-
-.topbar.compact .hero-meta {
-  display: none;
-}
-
 /* ======================================================
-   PAGE / CONTAINER
-====================================================== */
-.page {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 22px var(--gutter) 60px;
-}
-
-/* ======================================================
-   UTILS
-====================================================== */
-.tag {
-  display: inline-block;
-  border: 1px solid #111;
-  padding: 6px 10px;
-  font-size: 12px;
-  margin-bottom: 10px;
-  background: #fff;
-  color: #111;
-}
-
-.link {
-  color: #111;
-  text-decoration: underline;
-}
-
-/* ======================================================
-   HERO CAROUSEL (NO SE ASOMA EL SIGUIENTE SLIDE)
+   HERO CAROUSEL
 ====================================================== */
 .hero-carousel {
   position: relative;
@@ -300,7 +329,6 @@ body.menu-open .burger span:nth-child(3) {
 .carousel-viewport {
   overflow: hidden;
   border-radius: var(--radius);
-  padding-right: 0; /* ✅ NO usar padding aquí */
 }
 
 .carousel-track {
@@ -314,11 +342,11 @@ body.menu-open .burger span:nth-child(3) {
 .carousel-slide {
   flex: 0 0 100%;
   padding: 0;
-  overflow: hidden; /* ✅ recorta overlay dentro del slide */
+  overflow: hidden;
   border-radius: var(--radius);
 }
 
-/* Flechas */
+/* arrows */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -353,12 +381,12 @@ body.menu-open .burger span:nth-child(3) {
   right: 10px;
 }
 
-/* Dots */
+/* dots */
 .carousel-dots {
   display: flex;
-  gap: 10px;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   padding: 14px 0 0;
 }
 
@@ -377,24 +405,19 @@ body.menu-open .burger span:nth-child(3) {
 }
 
 /* ======================================================
-   HERO OVERLAY (MOCKUP)
+   HERO OVERLAY (mockup)
 ====================================================== */
 .hero--overlay {
   position: relative;
   height: 460px;
-
-  /* ✅ “aire” para el cuadro blanco SIN invadir otro slide */
-  padding-right: 70px;
+  padding-right: 70px; /* espacio para el card */
 }
 
 .hero--overlay .hero__media {
   position: absolute;
-  left: 0;
-  top: 0;
-
-  width: 54%; /* controla cuánto “pedazo” se ve de la imagen */
+  inset: 0 auto 0 0;
+  width: 54%;
   height: 100%;
-
   border-radius: var(--radius);
   overflow: hidden;
   background: #bfc9d6;
@@ -415,32 +438,32 @@ body.menu-open .burger span:nth-child(3) {
   transform: translateY(-50%);
 
   width: min(720px, 52%);
+  padding: 26px;
+
   background: #fff;
   color: #111;
 
   border: 1px solid rgba(0, 0, 0, 0.28);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
   border-radius: 4px;
-
-  padding: 26px;
 }
 
 .hero__card--overlay h1 {
+  margin: 8px 0 12px;
   font-size: 54px;
   line-height: 1.02;
-  margin: 8px 0 12px;
   color: var(--paper-ink);
 }
 
 .hero__card--overlay p {
+  margin: 0 0 12px;
   font-size: 15px;
   line-height: 1.45;
-  margin: 0 0 12px;
   color: #222;
 }
 
 /* ======================================================
-   HOME PANELS
+   HOME PANELS (K-DRAMAS + PICKS)
 ====================================================== */
 .home-panels {
   margin-top: var(--section-gap);
@@ -450,39 +473,12 @@ body.menu-open .burger span:nth-child(3) {
   align-items: stretch;
 }
 
-.panel {
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-
-  display: flex;
-  flex-direction: column;
-}
-
-.panel__header {
-  padding: 10px 12px 0;
-}
-
-.panel__title {
-  display: inline-block;
-  margin: 0;
-  padding: 6px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  font-size: 16px;
-  font-weight: 600;
-  color: #111;
-  background: #fff;
-}
-
-/* ======================================================
-   K-DRAMAS GRID
-====================================================== */
+/* K-Dramas */
 .kdramas-grid {
   padding: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px 18px;
-
   flex: 1;
   align-content: stretch;
   grid-auto-rows: 1fr;
@@ -497,17 +493,17 @@ body.menu-open .burger span:nth-child(3) {
 
 .mini-card__media {
   display: block;
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
   overflow: hidden;
   background: #d7dde7;
-  border-radius: 6px;
 }
 
 .mini-card__media img {
   width: 100%;
   height: 120px;
-  object-fit: cover;
   display: block;
+  object-fit: cover;
 }
 
 .mini-card__body {
@@ -525,24 +521,20 @@ body.menu-open .burger span:nth-child(3) {
   text-decoration: underline;
 }
 
-/* ======================================================
-   PICKS GRID
-====================================================== */
+/* Picks */
 .picks-grid {
   padding: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-
   flex: 1;
   align-content: stretch;
   grid-auto-rows: 1fr;
 }
 
 .pick-card {
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--panel-border);
   background: #fff;
-
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -556,8 +548,8 @@ body.menu-open .burger span:nth-child(3) {
 .pick-card__media img {
   width: 100%;
   height: 170px;
-  object-fit: cover;
   display: block;
+  object-fit: cover;
 }
 
 .pick-card__body {
@@ -583,23 +575,225 @@ body.menu-open .burger span:nth-child(3) {
   text-decoration: underline;
 }
 
-/* Pick 2: texto arriba + video abajo */
-.picks-grid .pick-card:nth-child(2) {
-  display: flex;
-  flex-direction: column;
+/* ======================================================
+   ADS + CARDS (page 2)
+====================================================== */
+.ads-and-cards {
+  margin-top: 18px;
 }
 
-/* Video: sin gris abajo */
-.pick-card__media--video {
-  position: relative;
+/* ads row */
+.ads-row {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+
+.ad {
   display: block;
+  background: #fff;
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow);
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.ad img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.ad--banner {
+  height: 120px;
+}
+
+.ad--square {
+  height: 120px;
+}
+
+/* cards row */
+.cards-row {
+  display: grid;
+  grid-template-columns: 0.85fr 1.5fr 0.85fr;
+  gap: 18px;
+  align-items: stretch;
+}
+
+/* ======================================================
+   EMBEDS (Instagram / TikTok)
+====================================================== */
+.embed {
+  width: 100%;
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.embed--ig,
+.embed--tt {
+  height: 520px;
+}
+
+/* Post panel: que el embed llene */
+.panel--post .panel__content {
+  flex: 1;
+  display: flex;
+}
+
+.panel--post .embed--ig {
+  flex: 1;
+  min-height: 720px;
+}
+
+/* ======================================================
+   MUSIC GRID
+====================================================== */
+.music-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 14px;
+  align-content: start;
+}
+
+.music-feature {
+  display: block;
+  border: 1px solid var(--panel-border);
+  overflow: hidden;
+  background: #fff;
+  text-decoration: none;
+  color: #111;
+}
+
+.music-feature img {
+  width: 100%;
+  height: 320px;
+  display: block;
+  object-fit: cover;
+}
+
+.music-feature__text {
+  padding: 10px 12px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.music-side {
+  display: grid;
+  gap: 12px;
+}
+
+.music-mini {
+  display: grid;
+  gap: 8px;
+  text-decoration: none;
+  color: #111;
+  border: 1px solid var(--panel-border);
+  background: #fff;
+  overflow: hidden;
+}
+
+.music-mini img {
+  width: 100%;
+  height: 86px;
+  display: block;
+  object-fit: cover;
+}
+
+.music-mini p {
+  margin: 0;
+  padding: 0 10px 10px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.music-bottom {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 12px;
+  border: 1px solid var(--panel-border);
+  background: #fff;
+  overflow: hidden;
+  text-decoration: none;
+  color: #111;
+}
+
+.music-bottom img {
+  width: 100%;
+  height: 150px;
+  display: block;
+  object-fit: cover;
+}
+
+.music-bottom p {
+  margin: 0;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* ======================================================
+   SOCIAL STACK
+====================================================== */
+.social-stack {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.social-logo {
+  border: 1px solid var(--panel-border);
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+}
+
+.social-logo img {
+  width: 90%;
+  max-width: 240px;
+  height: auto;
+  display: block;
+}
+
+/* ======================================================
+   YOUTUBE SAFE EMBED (preview -> iframe)
+====================================================== */
+.yt-embed {
   width: 100%;
   height: 170px;
+  border: 1px solid var(--panel-border);
   overflow: hidden;
-  background: transparent;
+  background: #000;
 }
 
-.pick-card__media--video img {
+.yt-embed__preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: block;
+  background: #000;
+}
+
+.yt-embed__thumb {
   width: 100%;
   height: 100%;
   display: block;
@@ -607,20 +801,30 @@ body.menu-open .burger span:nth-child(3) {
   object-position: center;
 }
 
-.video-badge {
+.yt-embed__play {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
-  font-size: 48px;
+  font-size: 46px;
   color: #fff;
   background: rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  transition: opacity 0.25s ease;
 }
 
-.pick-card__media--video:hover .video-badge {
-  opacity: 1;
+.yt-embed__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+}
+
+.yt-embed__fallback {
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.25;
+  background: #fff;
+  color: #111;
 }
 
 /* ======================================================
@@ -696,11 +900,9 @@ body.menu-open .burger span:nth-child(3) {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   text-decoration: none;
@@ -724,12 +926,25 @@ body.menu-open .burger span:nth-child(3) {
   font-size: 13px;
   line-height: 1.25;
   color: rgba(255, 255, 255, 0.78);
-  text-align: center;
 }
 
 /* ======================================================
    RESPONSIVE
 ====================================================== */
+@media (max-width: 1100px) {
+  .cards-row {
+    grid-template-columns: 1fr;
+  }
+
+  .music-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .music-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 980px) {
   .home-panels {
     grid-template-columns: 1fr;
@@ -739,7 +954,6 @@ body.menu-open .burger span:nth-child(3) {
     grid-template-columns: 1fr;
   }
 
-  /* Overlay: en tablet/móvil se vuelve “stack” */
   .hero--overlay {
     height: auto;
     padding-right: 0;
@@ -749,7 +963,6 @@ body.menu-open .burger span:nth-child(3) {
     position: static;
     width: 100%;
     height: 420px;
-    border-radius: var(--radius);
   }
 
   .hero__card--overlay {
@@ -777,6 +990,7 @@ body.menu-open .burger span:nth-child(3) {
     display: none;
   }
 
+  /* mobile nav drawer */
   .nav {
     position: absolute;
     top: 100%;
@@ -851,7 +1065,7 @@ body.menu-open .burger span:nth-child(3) {
     background: rgba(255, 255, 255, 0.06);
   }
 
-  /* Carrusel mobile: swipe, sin flechas */
+  /* carousel mobile: swipe */
   .carousel-btn {
     display: none;
   }
@@ -870,6 +1084,16 @@ body.menu-open .burger span:nth-child(3) {
   .carousel-slide {
     scroll-snap-align: start;
     flex: 0 0 100%;
+  }
+
+  /* ads */
+  .ads-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ad--banner,
+  .ad--square {
+    height: 120px;
   }
 }
 
@@ -892,7 +1116,7 @@ body.menu-open .burger span:nth-child(3) {
   }
 
   .pick-card__media img,
-  .pick-card__media--video {
+  .yt-embed {
     height: 200px;
   }
 }
