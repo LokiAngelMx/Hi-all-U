@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  /* ======================================================
-     HELPERS
-  ====================================================== */
   const body = document.body;
   const burger = document.querySelector(".burger");
   const topbar = document.querySelector(".topbar");
@@ -27,9 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     closeDropdowns();
   };
 
-  /* ======================================================
-     BURGER TOGGLE
-  ====================================================== */
   if (burger) {
     burger.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -39,9 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ======================================================
-     COMPACT HEADER ON SCROLL
-  ====================================================== */
   const handleScroll = () => {
     if (!topbar) return;
     topbar.classList.toggle("compact", window.scrollY > 60);
@@ -50,9 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
   handleScroll();
   window.addEventListener("scroll", handleScroll, { passive: true });
 
-  /* ======================================================
-     MOBILE DROPDOWN (DOBLE TAP)
-  ====================================================== */
   document.querySelectorAll(".nav-drop > .pill").forEach((trigger) => {
     trigger.addEventListener("click", function (e) {
       const parent = this.closest(".nav-drop");
@@ -64,13 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const alreadyOpen = parent.classList.contains("open");
 
-      // 2do tap: navegar
       if (alreadyOpen) {
         closeMenu();
         return;
       }
 
-      // 1er tap: abrir
       e.preventDefault();
       e.stopPropagation();
 
@@ -83,9 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ======================================================
-     CERRAR MENÚ AL TOCAR LINKS NORMALES
-  ====================================================== */
   document
     .querySelectorAll(".nav a.pill:not(.nav-drop > .pill)")
     .forEach((link) => {
@@ -95,9 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-  /* ======================================================
-     CERRAR AL TOCAR FUERA (MOBILE)
-  ====================================================== */
   document.addEventListener("click", (e) => {
     if (!isMobile()) return;
     if (!body.classList.contains("menu-open")) return;
@@ -110,17 +90,11 @@ document.addEventListener("DOMContentLoaded", () => {
     closeMenu();
   });
 
-  /* ======================================================
-     ESC PARA CERRAR TODO
-  ====================================================== */
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
     closeMenu();
   });
 
-  /* ======================================================
-     RESIZE: limpia estados mobile
-  ====================================================== */
   window.addEventListener(
     "resize",
     () => {
@@ -134,10 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: true },
   );
 
-  /* ======================================================
-     HERO CAROUSEL
-     FIX: en mobile ya NO usamos scrollIntoView (causaba jump arriba)
-  ====================================================== */
   const initHeroCarousel = () => {
     const root = document.querySelector(".hero-carousel");
     if (!root) return;
@@ -153,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let index = 0;
 
-    // Autoplay
     const AUTOPLAY_MS = 4500;
     let autoplayTimer = null;
     let userInteracted = false;
@@ -186,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const goTo = (i, opts = { behavior: "smooth" }) => {
       index = (i + slides.length) % slides.length;
 
-      // ✅ Mobile: mover SOLO scroll horizontal (no toca scroll vertical)
+      // En mobile solo se mueve el scroll horizontal para evitar saltos verticales.
       if (isMobile()) {
         const target = slides[index];
         const left = target.offsetLeft;
@@ -200,7 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Desktop: transform
       track.style.transform = `translateX(-${index * 100}%)`;
       syncDots();
     };
@@ -226,7 +194,6 @@ document.addEventListener("DOMContentLoaded", () => {
       autoplayTimer = null;
     };
 
-    // Botones
     prevBtn?.addEventListener("click", () => {
       userInteracted = true;
       stopAutoplay();
@@ -239,11 +206,9 @@ document.addEventListener("DOMContentLoaded", () => {
       next();
     });
 
-    // Pausa al hover (desktop)
     root.addEventListener("mouseenter", stopAutoplay);
     root.addEventListener("mouseleave", startAutoplay);
 
-    // Sync dots al hacer swipe en mobile
     let raf = null;
     viewport.addEventListener(
       "scroll",
@@ -274,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { passive: true },
     );
 
-    // Resize: en mobile NO forzamos re-centrado para evitar brincos
+    // En mobile no se fuerza re-centrado al redimensionar para evitar brincos.
     window.addEventListener(
       "resize",
       () => {
@@ -288,7 +253,6 @@ document.addEventListener("DOMContentLoaded", () => {
       { passive: true },
     );
 
-    // Visibility
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) startAutoplay();
     });
@@ -300,9 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initHeroCarousel();
 
-  /* ======================================================
-     SAFE YOUTUBE EMBED (Preview → Iframe)
-  ====================================================== */
+  // Carga el iframe de YouTube solo tras interacción para mejorar rendimiento y privacidad.
   const ytBlocks = document.querySelectorAll(".yt-embed");
 
   const buildIframe = (id) => {

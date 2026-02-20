@@ -1,6 +1,3 @@
-/* ======================================================
-   THEME + RESET
-====================================================== */
 :root {
   --bg: #0b0b0b;
   --ink: #f2f2f2;
@@ -19,6 +16,11 @@
 
   --panel-border: rgba(0, 0, 0, 0.18);
   --panel-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+
+  --font-main: "Cormorant Garamond", serif;
+  --font-accent: "Playfair Display", serif;
+  --font-ui:
+    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 *,
@@ -34,23 +36,17 @@ body {
 
 body {
   margin: 0;
-  font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+  font-family: var(--font-main);
   background: #eee;
   color: #111;
 }
 
-/* ======================================================
-   LAYOUT
-====================================================== */
 .page {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 22px var(--gutter) 60px;
+  padding: 22px var(--gutter) 36px;
 }
 
-/* ======================================================
-   UTILS
-====================================================== */
 .link {
   color: #111;
   text-decoration: underline;
@@ -64,11 +60,9 @@ body {
   border: 1px solid #111;
   background: #fff;
   color: #111;
+  font-family: var(--font-ui);
 }
 
-/* ======================================================
-   TOPBAR
-====================================================== */
 .topbar {
   position: sticky;
   top: 0;
@@ -84,12 +78,10 @@ body {
   max-width: var(--container);
   margin: 0 auto;
   padding: 22px var(--gutter) 18px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
-
   transition: all 0.25s ease;
 }
 
@@ -116,9 +108,9 @@ body {
   font-size: 14px;
   line-height: 1.3;
   color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-ui);
 }
 
-/* Compact header (scroll) */
 .topbar.compact .topbar__inner {
   flex-direction: row;
   justify-content: space-between;
@@ -150,9 +142,6 @@ body {
   display: none;
 }
 
-/* ======================================================
-   NAV
-====================================================== */
 .nav {
   width: 100%;
 }
@@ -174,6 +163,7 @@ body {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.92);
   transition: color 0.2s ease;
+  font-family: var(--font-accent);
 }
 
 .pill:hover {
@@ -195,7 +185,6 @@ body {
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* Dropdown */
 .nav-drop {
   position: relative;
 }
@@ -205,18 +194,15 @@ body {
   top: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(8px);
-
   width: 220px;
   padding: 8px;
   display: none;
-
   background: rgba(10, 10, 10, 0.98);
   border: 1px solid var(--line);
   box-shadow: 0 10px 30px var(--shadow);
   z-index: 60;
 }
 
-/* hover “bridge” */
 .drop-menu::before {
   content: "";
   position: absolute;
@@ -235,6 +221,7 @@ body {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-ui);
 }
 
 .drop-menu a:hover {
@@ -252,7 +239,6 @@ body {
   display: block;
 }
 
-/* Burger */
 .burger {
   display: none;
   width: 44px;
@@ -288,9 +274,6 @@ body.menu-open .burger span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ======================================================
-   PANELS (BASE)
-====================================================== */
 .panel {
   background: #fff;
   border: 1px solid var(--panel-border);
@@ -312,6 +295,7 @@ body.menu-open .burger span:nth-child(3) {
   font-weight: 600;
   color: #111;
   background: #fff;
+  font-family: var(--font-accent);
 }
 
 .panel__content {
@@ -319,9 +303,6 @@ body.menu-open .burger span:nth-child(3) {
   flex: 1;
 }
 
-/* ======================================================
-   HERO CAROUSEL
-====================================================== */
 .hero-carousel {
   position: relative;
   width: 100%;
@@ -348,25 +329,20 @@ body.menu-open .burger span:nth-child(3) {
   border-radius: var(--radius);
 }
 
-/* Arrows */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 5;
-
   width: 44px;
   height: 44px;
   border-radius: 12px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(0, 0, 0, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.18);
   color: #fff;
-
   cursor: pointer;
   user-select: none;
 }
@@ -383,7 +359,6 @@ body.menu-open .burger span:nth-child(3) {
   right: 10px;
 }
 
-/* Dots */
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -406,13 +381,10 @@ body.menu-open .burger span:nth-child(3) {
   border-color: rgba(0, 0, 0, 0.65);
 }
 
-/* ======================================================
-   HERO OVERLAY (MOCKUP)
-====================================================== */
 .hero--overlay {
   position: relative;
   height: 460px;
-  padding-right: 70px; /* espacio para el card */
+  padding-right: 70px;
 }
 
 .hero--overlay .hero__media {
@@ -438,13 +410,10 @@ body.menu-open .burger span:nth-child(3) {
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-
   width: min(720px, 52%);
   padding: 26px;
-
   background: #fff;
   color: #111;
-
   border: 1px solid rgba(0, 0, 0, 0.28);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
   border-radius: 4px;
@@ -455,6 +424,7 @@ body.menu-open .burger span:nth-child(3) {
   font-size: 54px;
   line-height: 1.02;
   color: var(--paper-ink);
+  font-family: var(--font-main);
 }
 
 .hero__card--overlay p {
@@ -464,9 +434,6 @@ body.menu-open .burger span:nth-child(3) {
   color: #222;
 }
 
-/* ======================================================
-   HOME PANELS (K-DRAMAS + PICKS)
-====================================================== */
 .home-panels {
   margin-top: var(--section-gap);
   display: grid;
@@ -475,7 +442,6 @@ body.menu-open .burger span:nth-child(3) {
   align-items: stretch;
 }
 
-/* K-Dramas */
 .kdramas-grid {
   padding: 12px;
   display: grid;
@@ -523,7 +489,6 @@ body.menu-open .burger span:nth-child(3) {
   text-decoration: underline;
 }
 
-/* Picks */
 .picks-grid {
   padding: 12px;
   display: grid;
@@ -563,6 +528,7 @@ body.menu-open .burger span:nth-child(3) {
   font-size: 16px;
   font-weight: 600;
   color: #111;
+  font-family: var(--font-accent);
 }
 
 .pick-card__desc {
@@ -570,21 +536,19 @@ body.menu-open .burger span:nth-child(3) {
   font-size: 14px;
   line-height: 1.35;
   color: #222;
+  font-family: var(--font-ui);
 }
 
 .pick-card__link {
   color: #111;
   text-decoration: underline;
+  font-family: var(--font-ui);
 }
 
-/* ======================================================
-   ADS + CARDS (PAGE 2)
-====================================================== */
 .ads-and-cards {
   margin-top: 18px;
 }
 
-/* Ads row */
 .ads-row {
   display: grid;
   grid-template-columns: 1fr 320px;
@@ -617,7 +581,6 @@ body.menu-open .burger span:nth-child(3) {
   height: 120px;
 }
 
-/* Cards row */
 .cards-row {
   display: grid;
   grid-template-columns: 0.85fr 1.5fr 0.85fr;
@@ -625,9 +588,6 @@ body.menu-open .burger span:nth-child(3) {
   align-items: stretch;
 }
 
-/* ======================================================
-   EMBEDS (Instagram / TikTok / Spotify)
-====================================================== */
 .embed {
   width: 100%;
   border: 1px solid var(--panel-border);
@@ -643,13 +603,11 @@ body.menu-open .burger span:nth-child(3) {
   display: block;
 }
 
-/* Instagram / TikTok */
 .embed--ig,
 .embed--tt {
   height: 520px;
 }
 
-/* Post panel: que el embed llene */
 .panel--post .panel__content {
   display: flex;
   flex: 1;
@@ -660,9 +618,6 @@ body.menu-open .burger span:nth-child(3) {
   min-height: 720px;
 }
 
-/* ======================================================
-   MUSIC GRID
-====================================================== */
 .music-grid {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -690,6 +645,7 @@ body.menu-open .burger span:nth-child(3) {
   padding: 10px 12px;
   font-size: 15px;
   line-height: 1.45;
+  font-family: var(--font-ui);
 }
 
 .music-side {
@@ -705,6 +661,7 @@ body.menu-open .burger span:nth-child(3) {
   border: 1px solid var(--panel-border);
   background: #fff;
   overflow: hidden;
+  font-family: var(--font-ui);
 }
 
 .music-mini img {
@@ -731,6 +688,7 @@ body.menu-open .burger span:nth-child(3) {
   overflow: hidden;
   text-decoration: none;
   color: #111;
+  font-family: var(--font-ui);
 }
 
 .music-bottom img {
@@ -747,9 +705,6 @@ body.menu-open .burger span:nth-child(3) {
   line-height: 1.45;
 }
 
-/* ======================================================
-   SOCIAL STACK
-====================================================== */
 .social-stack {
   display: grid;
   gap: 12px;
@@ -773,9 +728,6 @@ body.menu-open .burger span:nth-child(3) {
   display: block;
 }
 
-/* ======================================================
-   YOUTUBE SAFE EMBED (preview -> iframe)
-====================================================== */
 .yt-embed {
   width: 100%;
   height: 170px;
@@ -828,28 +780,26 @@ body.menu-open .burger span:nth-child(3) {
   line-height: 1.25;
   background: #fff;
   color: #111;
+  font-family: var(--font-ui);
 }
 
-/* ======================================================
-   FOOTER
-====================================================== */
 .site-footer {
   background: #0b0b0b;
   color: #fff;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  margin-top: 80px;
+  margin-top: 24px;
 }
 
 .site-footer__inner {
   max-width: var(--container);
   margin: 0 auto;
   padding: 44px var(--gutter);
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 36px;
   align-items: start;
   text-align: center;
+  font-family: var(--font-ui);
 }
 
 .footer-logos {
@@ -878,6 +828,7 @@ body.menu-open .burger span:nth-child(3) {
   margin: 0 0 14px;
   font-size: 18px;
   color: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-accent);
 }
 
 .footer-col a {
@@ -886,6 +837,7 @@ body.menu-open .burger span:nth-child(3) {
   font-size: 15px;
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
+  font-family: var(--font-ui);
 }
 
 .footer-col a:hover {
@@ -929,11 +881,9 @@ body.menu-open .burger span:nth-child(3) {
   font-size: 13px;
   line-height: 1.25;
   color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-ui);
 }
 
-/* ===========================
-   MOCKUP 3 (grid y alturas)
-=========================== */
 .mock3 {
   margin-top: var(--section-gap);
 }
@@ -946,35 +896,30 @@ body.menu-open .burger span:nth-child(3) {
   margin-bottom: 18px;
 }
 
-/* ✅ 1 fila, 3 columnas, TODOS estiran a la misma altura */
 .mock3__grid {
   display: grid;
   grid-template-columns: 0.95fr 1.75fr 0.6fr;
   gap: 18px;
-  align-items: stretch; /* clave */
+  align-items: stretch;
 }
 
-/* ✅ cada columna ocupa el 100% de la altura de la fila */
 .mock3__charts,
 .mock3__center,
 .mock3__rail {
   align-self: stretch;
 }
 
-/* Centro: dos cards apiladas */
 .mock3__center {
   display: grid;
   gap: 18px;
 }
 
-/* Rail: ads apilados */
 .mock3__rail {
   display: grid;
   gap: 18px;
   align-content: start;
 }
 
-/* Sizes rail */
 .ad--rail-square {
   height: 210px;
 }
@@ -983,25 +928,20 @@ body.menu-open .burger span:nth-child(3) {
   height: 520px;
 }
 
-/* ======================================================
-   STORY GRID (Beyond + Cultura: mismo estilo)
-====================================================== */
 .story-grid {
-  padding: 12px; /* aire dentro de la card */
+  padding: 12px;
 }
 
 .story-grid__frame {
   border: 1px solid var(--panel-border);
   background: #fff;
   padding: 12px;
-
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 12px;
   align-items: start;
 }
 
-/* Bloque grande */
 .story-grid__feature {
   display: block;
   text-decoration: none;
@@ -1023,9 +963,9 @@ body.menu-open .burger span:nth-child(3) {
   padding: 10px 12px;
   font-size: 14px;
   line-height: 1.45;
+  font-family: var(--font-ui);
 }
 
-/* Mini cards */
 .story-grid__side {
   display: grid;
   gap: 12px;
@@ -1036,7 +976,6 @@ body.menu-open .burger span:nth-child(3) {
   grid-template-columns: 120px 1fr;
   gap: 10px;
   align-items: start;
-
   border: 1px solid rgba(0, 0, 0, 0.12);
   background: #fff;
   overflow: hidden;
@@ -1056,11 +995,9 @@ body.menu-open .burger span:nth-child(3) {
   padding: 8px 10px 8px 0;
   font-size: 13px;
   line-height: 1.35;
+  font-family: var(--font-ui);
 }
 
-/* ======================================================
-   SPOTIFY (padding interno y full height)
-====================================================== */
 .mock3__charts {
   display: flex;
   flex-direction: column;
@@ -1069,10 +1006,9 @@ body.menu-open .burger span:nth-child(3) {
 .mock3__charts .panel__content {
   flex: 1;
   display: flex;
-  padding: 12px; /* margen interno */
+  padding: 12px;
 }
 
-/* Marco interno */
 .embed--sp {
   flex: 1;
   display: flex;
@@ -1089,9 +1025,143 @@ body.menu-open .burger span:nth-child(3) {
   display: block;
 }
 
-/* ======================================================
-   RESPONSIVE
-====================================================== */
+.mock4 {
+  margin-top: var(--section-gap);
+}
+
+.mock4__layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.75fr 0.6fr;
+  grid-template-areas:
+    "banner banner rail"
+    "left center rail";
+  gap: 18px;
+  align-items: stretch;
+}
+
+.mock4__banner {
+  grid-area: banner;
+  height: 120px;
+}
+
+.mock4__banner img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.mock4__left {
+  grid-area: left;
+}
+
+.mock4__center {
+  grid-area: center;
+}
+
+.mock4__rail {
+  grid-area: rail;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.mock4__rail .ad--rail-vertical {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+.mock4__rail .ad--rail-vertical img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.mock4__left .panel__content,
+.mock4__center .panel__content {
+  padding: 10px;
+}
+
+.list-card {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.list-card__item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  overflow: hidden;
+}
+
+.list-card__img {
+  width: 120px;
+  height: 78px;
+  object-fit: cover;
+  display: block;
+}
+
+.list-card__text {
+  margin: 0;
+  padding: 8px 10px 8px 0;
+  font-size: 13px;
+  line-height: 1.35;
+  font-family: var(--font-ui);
+}
+
+.list-card__item:hover .list-card__text {
+  text-decoration: underline;
+}
+
+.feature-card__frame {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  overflow: hidden;
+}
+
+.feature-card__media {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.feature-card__media img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.feature-card__body {
+  padding: 10px 12px;
+}
+
+.feature-card__title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  line-height: 1.15;
+  color: #111;
+  font-family: var(--font-accent);
+}
+
+.feature-card__desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #222;
+  font-family: var(--font-ui);
+}
+
 @media (max-width: 1100px) {
   .cards-row {
     grid-template-columns: 1fr;
@@ -1128,6 +1198,24 @@ body.menu-open .burger span:nth-child(3) {
 
   .story-grid__mini img {
     width: 140px;
+  }
+
+  .mock4__layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "banner"
+      "left"
+      "center"
+      "rail";
+  }
+
+  .mock4__rail .ad--rail-vertical {
+    flex: 0 0 auto;
+    height: 200px;
+  }
+
+  .feature-card__media img {
+    height: 260px;
   }
 }
 
@@ -1176,23 +1264,19 @@ body.menu-open .burger span:nth-child(3) {
     display: none;
   }
 
-  /* Mobile nav drawer */
   .nav {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     z-index: 60;
-
     background: rgba(10, 10, 10, 0.98);
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 14px 16px;
-
     transform: translateY(-12px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-
     transition:
       transform 220ms ease,
       opacity 220ms ease,
@@ -1251,7 +1335,6 @@ body.menu-open .burger span:nth-child(3) {
     background: rgba(255, 255, 255, 0.06);
   }
 
-  /* Carousel mobile: swipe */
   .carousel-btn {
     display: none;
   }
@@ -1272,7 +1355,6 @@ body.menu-open .burger span:nth-child(3) {
     flex: 0 0 100%;
   }
 
-  /* Ads row (page 2) */
   .ads-row {
     grid-template-columns: 1fr;
   }
@@ -1304,5 +1386,13 @@ body.menu-open .burger span:nth-child(3) {
   .pick-card__media img,
   .yt-embed {
     height: 200px;
+  }
+
+  .list-card__item {
+    grid-template-columns: 140px 1fr;
+  }
+
+  .list-card__img {
+    width: 140px;
   }
 }

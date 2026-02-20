@@ -5,27 +5,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>H!-all-U! Media&Entertainment</title>
+
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- ==============================
-      NAVBAR
-    ============================== -->
+    <!-- Header + navegación -->
     <header class="topbar" id="topbar">
         <div class="topbar__inner">
-            <!-- Logo -->
             <a class="brand" href="index.html">
                 <img class="brand__logo" src="assets/img/h-all-u-logo.png" alt="H!-all-U!" />
             </a>
 
-            <!-- Texto lateral hero -->
             <div class="hero-meta">
                 <div>H-all-U Media&amp;Entertainment</div>
                 <div>by © CasaRobles Group 2026</div>
             </div>
 
-            <!-- Navegación -->
             <nav class="nav" aria-label="Navegación principal">
                 <ul class="nav__list">
                     <li><a class="pill active" href="index.html">Inicio</a></li>
@@ -40,8 +42,15 @@
                         </div>
                     </li>
 
-                    <!-- K-Music SIN drop -->
-                    <li><a class="pill" href="kmusic.html">K-Music +</a></li>
+                    <li class="nav-drop">
+                        <a class="pill" href="kmusic.html" aria-haspopup="true" aria-expanded="false">K-Music +</a>
+                        <div class="drop-menu" role="menu">
+                            <a href="#" role="menuitem">Nuevos Lanzamientos</a>
+                            <a href="#" role="menuitem">Grupos &amp; Idols</a>
+                            <a href="#" role="menuitem">Premiaciones &amp; Eventos</a>
+                            <a href="#" role="menuitem">J-T-M-Pop</a>
+                        </div>
+                    </li>
 
                     <li class="nav-drop">
                         <a class="pill" href="kdramas.html" aria-haspopup="true" aria-expanded="false">K-Dramas +</a>
@@ -55,7 +64,6 @@
 
                     <li><a class="pill" href="kfashion.html">K-Fashion +</a></li>
 
-                    <!-- Vidas & Historias CON drop -->
                     <li class="nav-drop">
                         <a class="pill" href="vidas.html" aria-haspopup="true" aria-expanded="false">Vidas &amp;
                             Historias</a>
@@ -69,7 +77,6 @@
                 </ul>
             </nav>
 
-            <!-- Burger -->
             <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -78,17 +85,13 @@
         </div>
     </header>
 
-    <!-- ==============================
-      MAIN CONTENT
-    ============================== -->
     <main class="page">
-        <!-- HERO CAROUSEL -->
+        <!-- Hero carousel -->
         <section class="hero-carousel" aria-label="Carrusel principal">
             <button class="carousel-btn prev" type="button" aria-label="Anterior">‹</button>
 
             <div class="carousel-viewport">
                 <div class="carousel-track">
-                    <!-- Slide 1 -->
                     <article class="carousel-slide">
                         <div class="hero hero--overlay">
                             <div class="hero__media">
@@ -111,7 +114,6 @@
                         </div>
                     </article>
 
-                    <!-- Slide 2 -->
                     <article class="carousel-slide">
                         <div class="hero hero--overlay">
                             <div class="hero__media">
@@ -134,7 +136,6 @@
                         </div>
                     </article>
 
-                    <!-- Slide 3 -->
                     <article class="carousel-slide">
                         <div class="hero hero--overlay">
                             <div class="hero__media">
@@ -163,13 +164,11 @@
             <div class="carousel-dots" role="tablist" aria-label="Paginación del carrusel"></div>
         </section>
 
-        <!-- SECCIÓN 2: K-DRAMAS + / PICKS -->
         <section class="home-panels" aria-label="Secciones destacadas">
-            <!-- K-Dramas -->
             <section class="panel panel--kdramas" aria-label="K-Dramas destacados">
-                <div class="panel__header">
+                <header class="panel__header">
                     <h2 class="panel__title">K-Dramas +</h2>
-                </div>
+                </header>
 
                 <div class="kdramas-grid">
                     <article class="mini-card">
@@ -216,14 +215,12 @@
                 </div>
             </section>
 
-            <!-- Picks -->
             <section class="panel panel--picks" aria-label="Picks de la semana">
-                <div class="panel__header">
+                <header class="panel__header">
                     <h2 class="panel__title">Picks de la Semana</h2>
-                </div>
+                </header>
 
                 <div class="picks-grid">
-                    <!-- Pick 1 -->
                     <article class="pick-card">
                         <a class="pick-card__media" href="#">
                             <img src="assets/img/placeholder.jpg" alt="Portada del álbum" loading="lazy"
@@ -240,16 +237,13 @@
                         </div>
                     </article>
 
-                    <!-- Pick 2 (YouTube: preview → reproduce en página) -->
                     <article class="pick-card">
                         <div class="pick-card__body">
                             <h3 class="pick-card__headline">‘BLACKPINK - 뛰어(JUMP)’</h3>
                             <p class="pick-card__desc">
                                 Regresa el Pink a la escena musical para reclamar su lugar.
                                 <a class="pick-card__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                                    target="_blank" rel="noopener">
-                                    Ver en YouTube
-                                </a>
+                                    target="_blank" rel="noopener">Ver en YouTube</a>
                             </p>
                         </div>
 
@@ -263,9 +257,7 @@
                             <div class="yt-embed__fallback" hidden>
                                 Este video no permite reproducción aquí.
                                 <a class="pick-card__link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                                    target="_blank" rel="noopener">
-                                    Abrir en YouTube
-                                </a>
+                                    target="_blank" rel="noopener">Abrir en YouTube</a>
                             </div>
                         </div>
                     </article>
@@ -273,9 +265,7 @@
             </section>
         </section>
 
-        <!-- ADS + CARDS (mockup page 2) -->
         <section class="ads-and-cards" aria-label="Anuncios y secciones">
-            <!-- Ads row -->
             <div class="ads-row" aria-label="Anuncios">
                 <a class="ad ad--banner" href="#" target="_blank" rel="noopener" aria-label="Anuncio banner">
                     <img src="assets/ads/placeholder.jpg" alt="Anuncio banner" loading="lazy" decoding="async" />
@@ -286,9 +276,7 @@
                 </a>
             </div>
 
-            <!-- Cards row -->
             <div class="cards-row" aria-label="Tarjetas principales">
-                <!-- Post de la Semana -->
                 <article class="panel panel--post" aria-label="Post de la Semana">
                     <header class="panel__header">
                         <h3 class="panel__title">‘Post de la Semana’</h3>
@@ -302,7 +290,6 @@
                     </div>
                 </article>
 
-                <!-- Música & Idols -->
                 <article class="panel panel--music" aria-label="Música e Idols">
                     <header class="panel__header">
                         <h3 class="panel__title">Música &amp; Idols</h3>
@@ -346,7 +333,6 @@
                     </div>
                 </article>
 
-                <!-- Nuestras Redes -->
                 <article class="panel panel--social" aria-label="Nuestras Redes">
                     <header class="panel__header">
                         <h3 class="panel__title">Nuestras Redes</h3>
@@ -367,12 +353,7 @@
             </div>
         </section>
 
-        <!-- =========================
-  MOCKUP PAGE 3
-  Ads + Charts + Cards + Right Rail
-========================= -->
         <section class="mock3" aria-label="Sección destacada (mockup página 3)">
-            <!-- Top ads row -->
             <div class="mock3__top">
                 <a class="ad ad--banner" href="#" target="_blank" rel="noopener" aria-label="Anuncio banner">
                     <img src="assets/ads/placeholder.jpg" alt="Anuncio banner" loading="lazy" decoding="async" />
@@ -383,9 +364,7 @@
                 </a>
             </div>
 
-            <!-- Main grid -->
             <div class="mock3__grid">
-                <!-- Left: Charts (Spotify playlist) -->
                 <article class="panel mock3__charts" aria-label="Los Charts Ahora">
                     <header class="panel__header">
                         <h3 class="panel__title">Los Charts Ahora</h3>
@@ -401,9 +380,7 @@
                     </div>
                 </article>
 
-                <!-- Center: 2 cards -->
                 <div class="mock3__center" aria-label="Contenido central">
-                    <!-- Beyond Korea (MISMO layout que Cultura) -->
                     <article class="panel mock3__feature" aria-label="Beyond Korea">
                         <header class="panel__header">
                             <h3 class="panel__title">Beyond Korea</h3>
@@ -437,7 +414,6 @@
                         </div>
                     </article>
 
-                    <!-- Cultura & Historia (mismo layout) -->
                     <article class="panel mock3__feature" aria-label="Cultura e Historia">
                         <header class="panel__header">
                             <h3 class="panel__title">Cultura &amp; Historia</h3>
@@ -474,7 +450,6 @@
                     </article>
                 </div>
 
-                <!-- Right rail: 3 ads (cuadrado, cuadrado, largo) -->
                 <aside class="mock3__rail" aria-label="Anuncios laterales">
                     <a class="ad ad--rail-square" href="#" target="_blank" rel="noopener"
                         aria-label="Anuncio lateral superior">
@@ -490,20 +465,104 @@
                 </aside>
             </div>
         </section>
+
+        <section class="mock4" aria-label="Sección final (mockup página 4)">
+            <div class="mock4__layout">
+                <a class="ad ad--banner mock4__banner" href="#" target="_blank" rel="noopener"
+                    aria-label="Anuncio banner superior">
+                    <img src="assets/ads/placeholder.jpg" alt="Anuncio banner" loading="lazy" decoding="async" />
+                </a>
+
+                <article class="panel mock4__left" aria-label="Manjares y Lugares">
+                    <header class="panel__header">
+                        <h3 class="panel__title">Manjares &amp; Lugares</h3>
+                    </header>
+
+                    <div class="panel__content">
+                        <div class="list-card">
+                            <a class="list-card__item" href="#" target="_blank" rel="noopener">
+                                <img class="list-card__img" src="assets/img/placeholder.jpg" alt="Busan" loading="lazy"
+                                    decoding="async" />
+                                <p class="list-card__text">
+                                    <em>Busan</em>, el hogar de muchas historias y segundo hogar de Corea
+                                </p>
+                            </a>
+
+                            <a class="list-card__item" href="#" target="_blank" rel="noopener">
+                                <img class="list-card__img" src="assets/img/placeholder.jpg" alt="Torre Namsan"
+                                    loading="lazy" decoding="async" />
+                                <p class="list-card__text">
+                                    La <em>Torre Namsan de Seúl</em>, el ícono que nunca puede faltar.
+                                </p>
+                            </a>
+
+                            <a class="list-card__item" href="#" target="_blank" rel="noopener">
+                                <img class="list-card__img" src="assets/img/placeholder.jpg" alt="Kimbap" loading="lazy"
+                                    decoding="async" />
+                                <p class="list-card__text">El <em>kimbap</em>, una historia de autodefinición</p>
+                            </a>
+
+                            <a class="list-card__item" href="#" target="_blank" rel="noopener">
+                                <img class="list-card__img" src="assets/img/placeholder.jpg" alt="Makgeolli"
+                                    loading="lazy" decoding="async" />
+                                <p class="list-card__text">
+                                    <em>Mokgeolli</em>, la bebida que refresca con historia y tradición.
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel mock4__center" aria-label="Vidas e Historias">
+                    <header class="panel__header">
+                        <h3 class="panel__title">Vidas &amp; Historias</h3>
+                    </header>
+
+                    <div class="panel__content">
+                        <div class="feature-card">
+                            <div class="feature-card__frame">
+                                <a class="feature-card__media" href="#" target="_blank" rel="noopener">
+                                    <img src="assets/img/placeholder.jpg" alt="Historia destacada" loading="lazy"
+                                        decoding="async" />
+                                </a>
+
+                                <div class="feature-card__body">
+                                    <h4 class="feature-card__title">Kim Young-ok: La "Abuela de la Nación"</h4>
+
+                                    <p class="feature-card__desc">
+                                        Veterana con casi setenta años de trayectoria, Kim Young-ok es la actriz activa
+                                        más longeva de
+                                        Corea. Debutó en 1957 y es mundialmente reconocida por sus papeles en <em>Squid
+                                            Game</em> y
+                                        <em>Hometown Cha-Cha-Cha</em>. En este 2026, su legado como pilar del cine y la
+                                        televisión continúa
+                                        vigente e inspirador.
+                                        <a class="link" href="#" target="_blank" rel="noopener">Leer más</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <aside class="mock4__rail" aria-label="Anuncio lateral">
+                    <a class="ad ad--rail-vertical" href="#" target="_blank" rel="noopener"
+                        aria-label="Anuncio vertical">
+                        <img src="assets/ads/placeholder.jpg" alt="Anuncio vertical" loading="lazy" decoding="async" />
+                    </a>
+                </aside>
+            </div>
+        </section>
     </main>
 
-    <!-- ==============================
-      FOOTER
-    ============================== -->
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="site-footer__inner">
-            <!-- Logos -->
             <div class="footer-logos">
                 <img class="footer-logos__cr" src="assets/img/casarobles-group-logo.png" alt="CasaRobles Group" />
                 <img class="footer-logos__hu" src="assets/img/h-all-u-logo.png" alt="H!-all-U!" />
             </div>
 
-            <!-- Sitios -->
             <div class="footer-col">
                 <h4>Nuestros Sitios</h4>
                 <a href="#">CasaRobles Group</a>
@@ -511,19 +570,16 @@
                 <a href="#">CENFI</a>
             </div>
 
-            <!-- Contacto -->
             <div class="footer-col">
                 <h4>Contacto</h4>
                 <a href="mailto:contacto@casaroblesgroup.com">contacto@casaroblesgroup.com</a>
                 <a href="tel:+524772467436">477 246 7436</a>
             </div>
 
-            <!-- Redes -->
             <div class="footer-social">
                 <h4>Síguenos</h4>
 
                 <div class="footer-social__icons" aria-label="Redes sociales">
-                    <!-- Facebook -->
                     <a class="social-btn" href="#" aria-label="Facebook">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path
@@ -531,7 +587,6 @@
                         </svg>
                     </a>
 
-                    <!-- Instagram -->
                     <a class="social-btn" href="#" aria-label="Instagram">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <path
@@ -540,7 +595,6 @@
                         </svg>
                     </a>
 
-                    <!-- TikTok -->
                     <a class="social-btn" href="#" aria-label="TikTok">
                         <svg viewBox="0 0 448 512" aria-hidden="true" focusable="false">
                             <path
